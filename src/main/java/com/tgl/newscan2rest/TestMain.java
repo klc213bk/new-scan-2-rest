@@ -1,0 +1,105 @@
+package com.tgl.newscan2rest;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class TestMain {
+
+	public static class ScanRequest {
+		private String sourceName;
+		private String colorMode;
+		private String duplexMode;
+		private boolean queryFromPage;
+
+		public String getSourceName() {
+			return sourceName;
+		}
+
+		public void setSourceName(String sourceName) {
+			this.sourceName = sourceName;
+		}
+
+		public String getColorMode() {
+			return colorMode;
+		}
+
+		public void setColorMode(String colorMode) {
+			this.colorMode = colorMode;
+		}
+
+		public String getDuplexMode() {
+			return duplexMode;
+		}
+
+		public void setDuplexMode(String duplexMode) {
+			this.duplexMode = duplexMode;
+		}
+
+		public boolean isQueryFromPage() {
+			return queryFromPage;
+		}
+
+		public void setQueryFromPage(boolean queryFromPage) {
+			this.queryFromPage = queryFromPage;
+		}
+
+	}
+
+	public static void main(String[] args) {
+		try {
+			URL url = new URL("http://localhost:8080/scan");
+			ScanRequest scanRequest = new ScanRequest();
+			scanRequest.setColorMode("Black&White");
+			scanRequest.setDuplexMode("Dobule_Page_Scane");
+			scanRequest.setQueryFromPage(false);
+			scanRequest.setSourceName("PaperStream IP fi-7140");
+
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInputString = "";
+			try {
+				jsonInputString = mapper.writeValueAsString(scanRequest);
+			} catch (JsonProcessingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			HttpURLConnection con;
+
+			con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestProperty("Content-Type", "application/json");
+			con.setRequestProperty("Accept", "application/json");
+			con.setDoOutput(true);
+
+			try (OutputStream os = con.getOutputStream()) {
+				byte[] input = jsonInputString.getBytes("utf-8");
+				os.write(input, 0, input.length);
+			}
+
+			try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+				StringBuilder response = new StringBuilder();
+				String responseLine = null;
+				while ((responseLine = br.readLine()) != null) {
+					response.append(responseLine.trim());
+				}
+				System.out.println(response.toString());
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}
