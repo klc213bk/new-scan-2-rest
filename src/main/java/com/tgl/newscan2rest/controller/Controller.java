@@ -1,6 +1,10 @@
 package com.tgl.newscan2rest.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +30,8 @@ import com.asprise.imaging.core.RequestOutputItem;
 import com.asprise.imaging.core.scan.twain.Source;
 import com.asprise.imaging.core.scan.twain.TwainConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tgl.newscan2rest.bean.ImageRecordSet;
 import com.tgl.newscan2rest.bean.LoginStatus;
@@ -47,31 +53,31 @@ public class Controller {
 	public static final String IMAGE_ARCHIVE_DIR = System.getProperty("user.dir") + File.separator + "image-archive";
 	public static final String SCAN_TEMP_DIR = IMAGE_ARCHIVE_DIR + File.separator + "temp";
 	private static final double BLANK_PAGE_THRESHOLD = 0.000001d;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(Controller.class);
-	
-	@Autowired 
+
+	@Autowired
 	ScanService scanService;
-	
-	@Autowired 
+
+	@Autowired
 	LoginService loginService;
-	
+
 	@GetMapping("/greeting/{name}")
 	public Greeting greeting(@PathVariable String name) {
 		return new Greeting(counter.incrementAndGet(), String.format(template, name));
 	}
-	
+
 	@GetMapping("/sources")
 	public ResponseEntity<String> sources() {
 		List<String> sourceNameList = new ArrayList<>();
-		
+
 		Imaging imaging = new Imaging("TGL-Scan-2", 0);
 		List<Source> sourcesNameOnly = imaging.scanListSources(true, "all", true, false);
 		sourcesNameOnly.forEach(e -> sourceNameList.add(e.getSourceName()));
-		
+
 		SourcesResult sourcesResult = new SourcesResult();
 		sourcesResult.setSourceList(sourceNameList);
-		
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = "";
 		try {
@@ -81,21 +87,22 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		return ResponseEntity.ok(json);
-	
+
 	}
+
 	@GetMapping("/scanConfig")
 	public ResponseEntity<String> getScanConfig() {
 		List<String> sourceNameList = new ArrayList<>();
-		
+
 		Imaging imaging = new Imaging("TGL-Scan-2", 0);
 		List<Source> sourcesNameOnly = imaging.scanListSources(true, "all", true, false);
 		sourcesNameOnly.forEach(e -> sourceNameList.add(e.getSourceName()));
-		
+
 		SourcesResult sourcesResult = new SourcesResult();
 		sourcesResult.setSourceList(sourceNameList);
-		
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = "";
 		try {
@@ -105,16 +112,16 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		return ResponseEntity.ok(json);
-	
+
 	}
+
 	@PostMapping(path = "/scan", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> scan(@RequestBody ScanRequest scanRequest) {
-	
-		ScanResult scanResult =  scanService.scan(scanRequest);
-		
-		
+
+		ScanResult scanResult = scanService.scan(scanRequest);
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = "";
 		try {
@@ -125,38 +132,59 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		System.out.println("resultJson:" + json);
 		return ResponseEntity.ok(json);
 	}
+
 	@PostMapping(path = "/login", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<LoginStatus> login(@RequestBody LoginRequest loginRequest) {
-	
+
 		LoginStatus loginStatus = null;
 		try {
 			loginStatus = loginService.login(loginRequest);
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			String json = "";
-			try {
-//				Thread.sleep(2000);
-				json = objectMapper.writeValueAsString(loginStatus);
-				logger.debug("json:" + json);
-			} catch (JsonProcessingException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			System.out.println("resultJson:" + json);
-			
-			
+
+//			ObjectMapper objectMapper = new ObjectMapper();
+//			String json = "";
+//			try {
+//				json = objectMapper.writeValueAsString(loginStatus);
+//				logger.debug("json:" + json);
+//			} catch (JsonProcessingException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//			
+//			System.out.println("resultJson:" + json);
+
 		} catch (EBaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ResponseEntity.ok(loginStatus);
 	}
-	
+
+	@PostMapping(path = "/login2", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<LoginStatus> login2(@RequestBody LoginRequest loginRequest) {
+
+		LoginStatus loginStatus = null;
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			loginStatus = objectMapper.readValue(new File("loginstatus.json"), LoginStatus.class);
+		} catch (StreamReadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DatabindException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ResponseEntity.ok(loginStatus);
+	}
+
 //	@GetMapping("/scan2/{source}")
 //	public ResponseEntity<String> scan2(@PathVariable String source) {
 //	
