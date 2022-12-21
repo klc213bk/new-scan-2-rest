@@ -164,13 +164,17 @@ public class Controller {
 	}
 
 	@PostMapping(path = "/login2", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<LoginStatus> login2(@RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<String> login2(@RequestBody LoginRequest loginRequest) {
 
-		LoginStatus loginStatus = null;
+		String loginStatusJson = null;
 
-		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			loginStatus = objectMapper.readValue(new File("loginstatus.json"), LoginStatus.class);
+			Path path = Paths.get("loginstatus.json");
+			StringBuffer sb = new StringBuffer();
+			for (String line : Files.readAllLines(path)) {
+				sb.append(line);
+			}
+			loginStatusJson = sb.toString();
 		} catch (StreamReadException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -182,7 +186,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 
-		return ResponseEntity.ok(loginStatus);
+		return ResponseEntity.ok(loginStatusJson);
 	}
 
 //	@GetMapping("/scan2/{source}")
