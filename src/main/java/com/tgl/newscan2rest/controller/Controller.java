@@ -138,29 +138,30 @@ public class Controller {
 	}
 
 	@PostMapping(path = "/login", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<LoginStatus> login(@RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
 
 		LoginStatus loginStatus = null;
+		String json = "";
 		try {
 			loginStatus = loginService.login(loginRequest);
 
-//			ObjectMapper objectMapper = new ObjectMapper();
-//			String json = "";
-//			try {
-//				json = objectMapper.writeValueAsString(loginStatus);
-//				logger.debug("json:" + json);
-//			} catch (JsonProcessingException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//			
-//			System.out.println("resultJson:" + json);
+			ObjectMapper objectMapper = new ObjectMapper();
+			
+			try {
+				json = objectMapper.writeValueAsString(loginStatus);
+				logger.debug("json:" + json);
+			} catch (JsonProcessingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			System.out.println("resultJson:" + json);
 
 		} catch (EBaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ResponseEntity.ok(loginStatus);
+		return ResponseEntity.ok(json);
 	}
 
 	@PostMapping(path = "/login2", consumes = "application/json", produces = "application/json")
