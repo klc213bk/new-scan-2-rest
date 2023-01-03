@@ -1,5 +1,9 @@
 package com.tgl.newscan2rest.service;
 
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.tgl.newscan2rest.bean.ConnectionInfo;
@@ -12,16 +16,30 @@ import com.tgl.newscan2rest.dto.LoginRequest;
 import com.tgl.newscan2rest.http.EBaoException;
 import com.tgl.newscan2rest.http.EbaoClient;
 import com.tgl.newscan2rest.util.ObjectsUtil;
+import com.tgl.newscan2rest.util.PropertiesCache;
 
 //import javafx.concurrent.Service;
 //import javafx.concurrent.Task;
 
 @Service
 public class LoginService {
-
+	private static final Logger logger = LogManager.getLogger(LoginService.class);
+	
 	private String processCode = null;
 	private ScanConfig scanConfig = null;
 
+	
+	public LoginStatus logout() {
+		EbaoClient.getInstance().close();
+		processCode = LoginStatus.PROC_CODE_LOG_OUT;
+		
+		return new LoginStatus(
+				processCode, 
+				"",
+				"",
+				null
+			);
+	}
 	public LoginStatus login(LoginRequest loginRequest) throws EBaoException {
 		final String _hostName = loginRequest.getHostName();
 		if (_hostName == null) {
@@ -52,6 +70,8 @@ public class LoginService {
 				scanConfig = eBaoClient.getScanConfig();
 	        	processCode = LoginStatus.PROC_CODE_SUCCESS;
 
+	        	storeProperties(_hostName, _userName);
+	        	
 	    		return new LoginStatus(
     				processCode, 
     				ObjectsUtil.isNotEmpty(connInfo.getServerName()) ? connInfo.getServerName() : _hostName,
@@ -59,6 +79,16 @@ public class LoginService {
     				scanConfig
     			);
 
+	}
+	
+	private void storeProperties(String hostName, String userName) {
+		PropertiesCache.getInstance().setProperty(PropertiesCache.PROP_KEY.EBAO_HOST.propName(), hostName);
+		PropertiesCache.getInstance().setProperty(PropertiesCache.PROP_KEY.EBAO_USER_NAME.propName(), userName);
+		try {
+			PropertiesCache.getInstance().flush();
+		} catch (IOException e) {
+			logger.error("無法寫入組態設定檔 " + PropertiesCache.PROPS_FILE_NAME + "！");
+		}
 	}
 
 }

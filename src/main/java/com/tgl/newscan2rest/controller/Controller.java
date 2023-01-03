@@ -150,6 +150,23 @@ public class Controller {
 		return ResponseEntity.ok(json);
 	}
 
+	@PostMapping(path = "/logoutEbao", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> logoutEbao() {
+		String loginStatusJson = null;
+		LoginStatus loginStatus = null;
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		loginStatus = loginService.logout();
+		try {
+			loginStatusJson = objectMapper.writeValueAsString(loginStatus);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return ResponseEntity.ok(loginStatusJson);
+			
+	}
 	@PostMapping(path = "/loginEbao", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> loginEbao(@RequestBody LoginRequest loginRequest) {
 
@@ -224,30 +241,30 @@ public class Controller {
 //		return ResponseEntity.ok(loginStatusJson);
 	}
 
-	@PostMapping(path = "/login2", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<String> login2(@RequestBody LoginRequest loginRequest) {
-
-		String loginStatusJson = null;
-
-		try {
-			Path path = Paths.get(loginStatusJsonFile);
-			StringBuffer sb = new StringBuffer();
-			for (String line : Files.readAllLines(path)) {
-				sb.append(line);
-			}
-			loginStatusJson = sb.toString();
-			
-		} catch (StreamReadException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DatabindException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		return ResponseEntity.ok(loginStatusJson);
-	}
+//	@PostMapping(path = "/login2", consumes = "application/json", produces = "application/json")
+//	public ResponseEntity<String> login2(@RequestBody LoginRequest loginRequest) {
+//
+//		String loginStatusJson = null;
+//
+//		try {
+//			Path path = Paths.get(loginStatusJsonFile);
+//			StringBuffer sb = new StringBuffer();
+//			for (String line : Files.readAllLines(path)) {
+//				sb.append(line);
+//			}
+//			loginStatusJson = sb.toString();
+//			
+//		} catch (StreamReadException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (DatabindException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
+//		return ResponseEntity.ok(loginStatusJson);
+//	}
 
 }
