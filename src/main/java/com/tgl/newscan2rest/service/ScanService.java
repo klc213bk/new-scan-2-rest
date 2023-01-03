@@ -98,7 +98,6 @@ public class ScanService {
 			imageRecordHelper.marshalToFile(recordSet);
 			
 			scanResult = new ScanResult();
-			scanResult.setImageRecordSetFile(RECORD_SET_FILE_FULL_NAME);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,7 +105,7 @@ public class ScanService {
 			errorMessages.add(e.getMessage());
 			
 			scanResult = new ScanResult();
-			scanResult.setErrorCode("-1100");
+			scanResult.setErrorCode("-1000");
 			scanResult.setErrorMessages(errorMessages);
 		} catch (JAXBException e) {
 			logger.error(e.getMessage(), e);
@@ -121,7 +120,7 @@ public class ScanService {
     			errorMessages.add(ioe.getMessage());
 			}
 			scanResult = new ScanResult();
-			scanResult.setErrorCode("-1200");
+			scanResult.setErrorCode("-1000");
 			scanResult.setErrorMessages(errorMessages);
 		}
 		

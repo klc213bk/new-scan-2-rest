@@ -2,6 +2,8 @@ package com.tgl.newscan2rest.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -35,6 +37,8 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tgl.newscan2rest.bean.ImageRecordSet;
 import com.tgl.newscan2rest.bean.LoginStatus;
+import com.tgl.newscan2rest.bean.ScanConfig;
+import com.tgl.newscan2rest.bean.ScanConfigResult;
 import com.tgl.newscan2rest.bean.ScanResult;
 import com.tgl.newscan2rest.bean.SourcesResult;
 import com.tgl.newscan2rest.dto.Greeting;
@@ -43,17 +47,22 @@ import com.tgl.newscan2rest.dto.ScanRequest;
 import com.tgl.newscan2rest.http.EBaoException;
 import com.tgl.newscan2rest.service.LoginService;
 import com.tgl.newscan2rest.service.ScanService;
+import com.tgl.newscan2rest.util.ScanConfigUtil;
 
 @RestController
 public class Controller {
-
+	private static final String CONFIG_DIR = System.getProperty("user.dir") + File.separator + "config";
+	
 	private static final String template = "Hello, %s!";
 	private final AtomicLong counter = new AtomicLong();
 	public static final String APP_ID = "TGL-Scan-2";
 	public static final String IMAGE_ARCHIVE_DIR = System.getProperty("user.dir") + File.separator + "image-archive";
 	public static final String SCAN_TEMP_DIR = IMAGE_ARCHIVE_DIR + File.separator + "temp";
 	private static final double BLANK_PAGE_THRESHOLD = 0.000001d;
-
+	
+	private static final String loginStatusJsonFile = CONFIG_DIR + File.separator + "loginStatus.json";
+	//private static final String loginConfigJsonFile = CONFIG_DIR + File.separator + "loginConfig.json";
+	
 	private static final Logger logger = LoggerFactory.getLogger(Controller.class);
 
 	@Autowired
@@ -92,29 +101,30 @@ public class Controller {
 
 	}
 
-	@GetMapping("/scanConfig")
-	public ResponseEntity<String> getScanConfig() {
-		List<String> sourceNameList = new ArrayList<>();
-
-		Imaging imaging = new Imaging("TGL-Scan-2", 0);
-		List<Source> sourcesNameOnly = imaging.scanListSources(true, "all", true, false);
-		sourcesNameOnly.forEach(e -> sourceNameList.add(e.getSourceName()));
-
-		SourcesResult sourcesResult = new SourcesResult();
-		sourcesResult.setSourceList(sourceNameList);
-
-		ObjectMapper objectMapper = new ObjectMapper();
-		String json = "";
-		try {
-			json = objectMapper.writeValueAsString(sourcesResult);
-			logger.debug("json:" + json);
-		} catch (JsonProcessingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
+	@GetMapping("/testStr")
+	public ResponseEntity<String> testStr() {
+		String json = "{\"rating\":\"4.5\",\"img\":\"lib/utils/assets/image_1\"}";
+		System.out.println("json" + json);
 		return ResponseEntity.ok(json);
-
+	}
+	@GetMapping("/loginStatus")
+	public ResponseEntity<String> getLoginStatus() {
+		
+		Path path = Paths.get(loginStatusJsonFile);
+		StringBuffer sb = new StringBuffer();
+		try {
+			for (String line : Files.readAllLines(path)) {
+				sb.append(line);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String json = sb.toString();
+		
+		return ResponseEntity.ok(json);
+		
 	}
 
 	@PostMapping(path = "/scan", consumes = "application/json", produces = "application/json")
@@ -125,57 +135,46 @@ public class Controller {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = "";
 		try {
-//			Thread.sleep(2000);
+
 			json = objectMapper.writeValueAsString(scanResult);
+			
+		//	json = "{\"errorCode\":\"0000\",\"errorMessages\":null}";
+
 			logger.debug("json:" + json);
+		
 		} catch (JsonProcessingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
-		System.out.println("resultJson:" + json);
 		return ResponseEntity.ok(json);
 	}
 
-	@PostMapping(path = "/login", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+	@PostMapping(path = "/loginEbao", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> loginEbao(@RequestBody LoginRequest loginRequest) {
 
-		LoginStatus loginStatus = null;
-		String json = "";
-		try {
-			loginStatus = loginService.login(loginRequest);
-
-			ObjectMapper objectMapper = new ObjectMapper();
-			
-			try {
-				json = objectMapper.writeValueAsString(loginStatus);
-				logger.debug("json:" + json);
-			} catch (JsonProcessingException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			System.out.println("resultJson:" + json);
-
-		} catch (EBaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ResponseEntity.ok(json);
-	}
-
-	@PostMapping(path = "/login2", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<String> login2(@RequestBody LoginRequest loginRequest) {
-
+		
 		String loginStatusJson = null;
-
+		LoginStatus loginStatus = null;
 		try {
-			Path path = Paths.get("loginstatus.json");
-			StringBuffer sb = new StringBuffer();
-			for (String line : Files.readAllLines(path)) {
-				sb.append(line);
-			}
-			loginStatusJson = sb.toString();
+			ObjectMapper objectMapper = new ObjectMapper();
+			loginStatus = loginService.login(loginRequest);
+			loginStatusJson = objectMapper.writeValueAsString(loginStatus);
+			
+			
+			Path path = Paths.get(loginStatusJsonFile);
+			
+//			StringBuffer sb = new StringBuffer();
+//			for (String line : Files.readAllLines(path)) {
+//				sb.append(line);
+//			}
+//			loginStatusJson = sb.toString();
+			
+			// write json to file
+			try ( Writer out = Files.newBufferedWriter(path, StandardCharsets.UTF_8) ) {
+	        	out.write(loginStatusJson);
+	        }
+			
 		} catch (StreamReadException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -185,178 +184,70 @@ public class Controller {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} catch (EBaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return ResponseEntity.ok(loginStatusJson);
+		
+		
+////		ObjectMapper objectMapper = new ObjectMapper();
+//		LoginStatus loginStatus = null;
+//		String loginStatusJson = "";
+//		try {
+////			loginStatus = loginService.login(loginRequest);
+////				
+////			json = objectMapper.writeValueAsString(loginStatus);
+//			
+//			
+//			Path path = Paths.get(loginStatusJsonFile);
+//			StringBuffer sb = new StringBuffer();
+//			for (String line : Files.readAllLines(path)) {
+//				sb.append(line);
+//			}
+//			loginStatusJson = sb.toString();
+//			
+//			
+//			// write json to file
+////			Path path = Paths.get(loginStatusJsonFile2);
+////		    byte[] strToBytes = json.getBytes();
+////
+////		    Files.write(path, strToBytes);
+//			logger.debug("json:" + loginStatusJson);
+//			
+//
+//		} catch (/*EBaoException |*/ IOException e) {
+//			e.printStackTrace();
+//			loginStatus.setProcessCode(LoginStatus.PROC_CODE_SYSTEM_ERROR);
+//			
+//		}
+//		return ResponseEntity.ok(loginStatusJson);
+	}
 
+	@PostMapping(path = "/login2", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> login2(@RequestBody LoginRequest loginRequest) {
+
+		String loginStatusJson = null;
+
+		try {
+			Path path = Paths.get(loginStatusJsonFile);
+			StringBuffer sb = new StringBuffer();
+			for (String line : Files.readAllLines(path)) {
+				sb.append(line);
+			}
+			loginStatusJson = sb.toString();
+			
+		} catch (StreamReadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DatabindException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		return ResponseEntity.ok(loginStatusJson);
 	}
 
-//	@GetMapping("/scan2/{source}")
-//	public ResponseEntity<String> scan2(@PathVariable String source) {
-//	
-//		ScanRequest scanRequest = new ScanRequest();
-//		scanRequest.setColorMode("Black&White");
-//		scanRequest.setDuplexMode("Dobule_Page_Scane");
-//		scanRequest.setQueryFromPage(false);
-//		scanRequest.setSourceName(source);
-//		
-//		String resultJson = scanService.scan2(scanRequest);
-//		System.out.println("resultJson:" + resultJson);
-//		return ResponseEntity.ok(resultJson);
-//	}
-//	@GetMapping("/settings")
-//    public List<String> settings()
-//    {
-//    	List<String> sourceNameList = new ArrayList<>();
-//    	String sourceName = null;
-//    	
-//    	Imaging imaging = new Imaging(APP_ID, 0);
-//    	List<Source> sourcesNameOnly = imaging.scanListSources(true, "all", true, false);
-//    	System.out.println("All sources with names only: \n" + sourcesNameOnly);
-//    	for (Source source : sourcesNameOnly) {
-//    		System.out.println("sourcesName:" + source.getSourceName());
-//    		sourceNameList.add(source.getSourceName());
-//    	}
-//
-//		return sourceNameList;
-//    }
-//    @GetMapping("/scan3/{source}")
-//    public String scan3(@PathVariable String source) {
-//
-//    	String sourceName = source;//"PaperStream IP fi-7140";
-//    	logger.debug("sourceName:" + sourceName);
-//    	
-//    	Imaging imaging = new Imaging(APP_ID, 0)
-//			    .setUseAspriseSourceSelectUI(false);
-//    	
-//    	RequestOutputItem requestOutput = null;
-//		int scanType = TwainConstants.TWPT_BW;
-//		int scanDuplex = TwainConstants.TWDX_NONE;
-//		boolean duplexEnabled = false;
-//
-////		if ( Constant.COLOR_MODE_BLACK_WHITE.equals(colorModeStr) ) {
-//			requestOutput = new RequestOutputItem(Imaging.OUTPUT_SAVE, Imaging.FORMAT_TIF);
-//			requestOutput.setTiffCompression(Imaging.TIFF_COMPRESSION_CCITT_G4);
-////		} else if ( Constant.COLOR_MODE_COLOR.equals(colorModeStr) ) {
-////			scanType = TwainConstants.TWPT_RGB;
-////			requestOutput = new RequestOutputItem(Imaging.OUTPUT_SAVE, Imaging.FORMAT_JPG);
-////		}
-//
-//			requestOutput.setSavePath(SCAN_TEMP_DIR + "\\${TMS}${EXT}");
-////			requestOutput.setSavePath("C:\\Users\\steven\\eclipse-workspace\\new-scan-2-rest\\new-scan-2-rest\\image-archive\\temp\\${TMS}${EXT}");
-//		//requestOutput.setSavePath(SCAN_TEMP_DIR);
-//		requestOutput.setForceSinglePage(true);
-//		logger.debug("saved path:" + SCAN_TEMP_DIR);
-//		
-//		
-////		if ( Constant.DUPLEX_MODE_SINGLE_PAGE.equals(duplexModeStr) ) {
-//////			scanDuplex = TwainConstants.TWDX_1PASSDUPLEX;
-////			scanDuplex = TwainConstants.TWDX_NONE;
-////		} else if ( Constant.DUPLEX_MODE_DOUBLE_PAGE.equals(duplexModeStr) ) {
-//			scanDuplex = TwainConstants.TWDX_2PASSDUPLEX;
-//			duplexEnabled = true;
-////		}
-//
-//		int stScanType = scanType;
-//		int stScanDuplex = scanDuplex;
-//		
-//    	Map<String, String> algoMap = new HashMap<String, String>();
-//		algoMap.put("type", "B"); // Types to try: DEFAULT, A, B, C 
-//		
-//    	Request request = new Request()
-//    			.addOutputItem(requestOutput)
-//    			.setRecognizeBarcodes(true)
-//    			.setBarcodesSettings(algoMap)
-////    			.setDetectBlankPages("false") 不偵測空白頁，由掃描器設定[空白頁檢測]控制
-//    			.setBlankPageThreshold(BLANK_PAGE_THRESHOLD) // 因部份條碼貼紙或自行列印的條碼辨識不到，故由 0.02 降低至 0.000001 (與舊版掃描設定相同)
-//    			.setTwainCap(TwainConstants.ICAP_PIXELTYPE, stScanType)
-//    			.setTwainCap(TwainConstants.CAP_DUPLEXENABLED, duplexEnabled)
-//    			.setTwainCap(TwainConstants.CAP_DUPLEX, scanDuplex)
-//    			;
-//    	
-//    	if (logger.isDebugEnabled()) {
-//			retrieveExtAttributes(request);
-//		}
-//    	
-//    	if (logger.isDebugEnabled()) {
-//			logger.debug("imaging.scan()");
-//			logger.debug("request = {}", request.toJson(true));
-//		}
-//
-//		// 開始掃描
-//		com.asprise.imaging.core.Result result = imaging.scan(request, sourceName, false, true);
-//
-//		String resultJson = result.toJson(true);
-//		if (logger.isDebugEnabled()) {
-//			logger.debug("result = {}", result == null ? "(null)" : resultJson);
-//		}
-//		
-//		List<File> acquireFiles = result.getImageFiles();
-//		if ( acquireFiles==null || acquireFiles.size()==0 ) {
-//			if (logger.isDebugEnabled()) {
-//				logger.debug("no acquireFiles....");
-//			}
-//			return null;
-//		}
-//		for ( int i=0; i<acquireFiles.size(); i++ ) {
-//	    	File acquireFile = acquireFiles.get(i);
-//			if (logger.isDebugEnabled()) {
-//				logger.debug("Acquire image :{}", acquireFile.getName());
-//			}
-//		}
-//		return resultJson;
-//    }
-//    private static void retrieveExtAttributes(Request request) {
-//		int[] capAttrs = { 
-//			TwainConstants.ICAP_BARCODEDETECTIONENABLED, 
-//			TwainConstants.ICAP_SUPPORTEDBARCODETYPES, 
-//			TwainConstants.ICAP_BARCODEMAXSEARCHPRIORITIES, 
-//			TwainConstants.ICAP_BARCODESEARCHPRIORITIES, 
-//			TwainConstants.ICAP_BARCODESEARCHMODE, 
-//			TwainConstants.ICAP_BARCODEMAXRETRIES, 
-//			TwainConstants.ICAP_BARCODETIMEOUT
-//		};
-//		String[] capAttrNames = { 
-//			"ICAP_BARCODEDETECTIONENABLED", 
-//			"ICAP_SUPPORTEDBARCODETYPES", 
-//			"ICAP_BARCODEMAXSEARCHPRIORITIES", 
-//			"ICAP_BARCODESEARCHPRIORITIES", 
-//			"ICAP_BARCODESEARCHMODE", 
-//			"ICAP_BARCODEMAXRETRIES", 
-//			"ICAP_BARCODETIMEOUT"
-//		};
-//		int[] extAttrs = { 
-//			TwainConstants.TWEI_BARCODEX, 
-//			TwainConstants.TWEI_BARCODEY, 
-//			TwainConstants.TWEI_BARCODETEXT, 
-//			TwainConstants.TWEI_BARCODETYPE, 
-//			TwainConstants.TWEI_BARCODECOUNT, 
-//			TwainConstants.TWEI_BARCODECONFIDENCE, 
-//			TwainConstants.TWEI_BARCODEROTATION, 
-//			TwainConstants.TWEI_BARCODETEXTLENGTH
-//		};
-//		String[] extAttrNames = { 
-//			"TWEI_BARCODEX", 
-//			"TWEI_BARCODEY", 
-//			"TWEI_BARCODETEXT", 
-//			"TWEI_BARCODETYPE", 
-//			"TWEI_BARCODECOUNT", 
-//			"TWEI_BARCODECONFIDENCE", 
-//			"TWEI_BARCODEROTATION", 
-//			"TWEI_BARCODETEXTLENGTH"
-//		};
-//
-//		for (int i=0; (i<capAttrs.length && i<=160); i++) {
-//			int attr = capAttrs[i];
-//			String attrName = capAttrNames[i];
-//			logger.debug("{}={}", attrName, attr);
-//			request.retrieveCap(attr);
-//		}
-//		for (int j=0; j<extAttrs.length; j++) {
-//			int attr = extAttrs[j];
-//			String attrName = extAttrNames[j];
-//			logger.debug("{}={}", attrName, attr);
-//			request.retrieveExtendedImageAttributes(attr);
-//		}
-//
-//	}
 }
