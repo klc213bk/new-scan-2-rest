@@ -55,8 +55,47 @@ public class TestMain {
 		}
 
 	}
-
 	public static void main(String[] args) {
+		testScanConfig();
+	}
+	public static void testScanConfig() {
+		try {
+			URL url = new URL("http://localhost:8090/scanConfig");
+
+			ObjectMapper mapper = new ObjectMapper();
+			
+			HttpURLConnection con;
+
+			con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+	        System.out.println("ResponseCode:" + con.getResponseCode());
+//	        
+//			con.setRequestProperty("Content-Type", "application/json");
+//			con.setRequestProperty("Accept", "application/json");
+//			con.setDoOutput(true);
+//
+//			try (OutputStream os = con.getOutputStream()) {
+//				byte[] input = jsonInputString.getBytes("utf-8");
+//				os.write(input, 0, input.length);
+//			}
+//
+//			try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+//				StringBuilder response = new StringBuilder();
+//				String responseLine = null;
+//				while ((responseLine = br.readLine()) != null) {
+//					response.append(responseLine.trim());
+//				}
+//				System.out.println(response.toString());
+//			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	public static void testScan() {
 		try {
 			URL url = new URL("http://localhost:8080/scan");
 			ScanRequest scanRequest = new ScanRequest();
