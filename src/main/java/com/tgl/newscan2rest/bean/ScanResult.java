@@ -4,8 +4,13 @@ import java.util.List;
 
 public class ScanResult {
 
-	String errorCode = "0000";
-	List<String> errorMessages;
+	String errorCode;
+	String errorMessage;
+	
+	public ScanResult(String errorCode, String errorMessage) {
+		this.errorCode = errorCode;
+		this.errorMessage = errorMessage;
+	}
 	public String getErrorCode() {
 		return errorCode;
 	}
@@ -13,11 +18,14 @@ public class ScanResult {
 		this.errorCode = errorCode;
 	}
 	
-	public List<String> getErrorMessages() {
-		return errorMessages;
+	public String getErrorMessage() {
+		return errorMessage;
 	}
-	public void setErrorMessages(List<String> errorMessages) {
-		this.errorMessages = errorMessages;
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 	
+	public String toJsonString() {
+		return "{\"errorCode\":" + errorCode + "\",\"errorMessage\":null}";
+	}
 }

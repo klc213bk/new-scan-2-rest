@@ -42,7 +42,6 @@ public class ScanService {
 	//public static final String SCAN_TEMP_DIR = IMAGE_ARCHIVE_DIR + File.separator + "temp";
 
 	public ScanResult scan(ScanRequest scanRequest) {
-		List<String> errorMessages = new ArrayList<>();
 		
 		Imaging imaging = new Imaging(APP_ID, 0).setUseAspriseSourceSelectUI(false);
 		
@@ -97,31 +96,26 @@ public class ScanService {
 			ImageRecordHelper imageRecordHelper = ImageRecordHelper.getInstance();
 			imageRecordHelper.marshalToFile(recordSet);
 			
-			scanResult = new ScanResult();
+			scanResult = new ScanResult("0000", null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
-			errorMessages.add(e.getMessage());
 			
-			scanResult = new ScanResult();
-			scanResult.setErrorCode("-1000");
-			scanResult.setErrorMessages(errorMessages);
+			scanResult = new ScanResult("-1000", e.getMessage());
 		} catch (JAXBException e) {
 			logger.error(e.getMessage(), e);
 			String backupFileName = null;
-			String loadErrorMessage = String.format("%s 檔案內容有誤，無法解析！原檔案將備份並更名為 %s 以利除錯追蹤。", ImageRecordHelper.RECORD_SET_FILE_NAME, backupFileName);
-			errorMessages.add(loadErrorMessage);
+			String errorMessage = "";
+			errorMessage = String.format("%s 檔案內容有誤，無法解析！原檔案將備份並更名為 %s 以利除錯追蹤。", ImageRecordHelper.RECORD_SET_FILE_NAME, backupFileName);
 			try {
 				ImageRecordHelper recordSetHelper = ImageRecordHelper.getInstance();
 				backupFileName = recordSetHelper.backupXmlFile();
 			} catch (IOException ioe) {
     			logger.error("", ioe);
-    			errorMessages.add(ioe.getMessage());
+    			errorMessage = errorMessage + "\n" + ioe.getMessage();
 			}
-			scanResult = new ScanResult();
-			scanResult.setErrorCode("-1000");
-			scanResult.setErrorMessages(errorMessages);
+			scanResult = new ScanResult("-1000", errorMessage);
 		}
 		
 		return scanResult;

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -127,18 +128,21 @@ public class Controller {
 		
 	}
 
-	@PostMapping(path = "/scan", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<String> scan(@RequestBody ScanRequest scanRequest) {
+	@PostMapping(path = "/scan", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> scan(@RequestBody ScanRequest scanRequest) {
 
-		ScanResult scanResult = scanService.scan(scanRequest);
-
+		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = "";
+		ScanResult scanResult = null;
 		try {
+			scanResult = scanService.scan(scanRequest);
 
 			json = objectMapper.writeValueAsString(scanResult);
 			
-		//	json = "{\"errorCode\":\"0000\",\"errorMessages\":null}";
+			scanResult = new ScanResult("0000", null);
+			json = objectMapper.writeValueAsString(scanResult);
+			//json = "{\"errorCode\":\"0000\",\"errorMessage\":null}";
 
 			logger.debug("json:" + json);
 		
@@ -149,7 +153,56 @@ public class Controller {
 
 		return ResponseEntity.ok(json);
 	}
+	@PostMapping(path = "/scan2", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> scan2(@RequestBody ScanRequest scanRequest) {
 
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = "";
+		ScanResult scanResult = null;
+		try {
+			scanResult = scanService.scan(scanRequest);
+
+			json = objectMapper.writeValueAsString(scanResult);
+			
+			scanResult = new ScanResult("0000", null);
+			json = objectMapper.writeValueAsString(scanResult);
+			//json = "{\"errorCode\":\"0000\",\"errorMessage\":null}";
+			Thread.sleep(10000);
+
+			logger.debug("json222:" + json);
+		
+		} catch (JsonProcessingException | InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		return ResponseEntity.ok(json);
+	}
+	@GetMapping("/scan3")
+	public ResponseEntity<String> scan3() {
+		
+		ScanRequest scanRequest = new ScanRequest();
+		scanRequest.setColorMode("Black&White");
+		scanRequest.setDuplexMode("Dobule_Page_Scane");
+		scanRequest.setQueryFromPage(false);
+		scanRequest.setSourceName("PaperStream IP fi-7140");
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = "";
+		try {
+			ScanResult scanResult = scanService.scan(scanRequest);
+			
+			json = objectMapper.writeValueAsString(scanResult);
+			logger.debug("json3:" + json);
+		} catch (JsonProcessingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		return ResponseEntity.ok(json);
+
+	}
 	@PostMapping(path = "/logoutEbao", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> logoutEbao() {
 		String loginStatusJson = null;
@@ -178,16 +231,8 @@ public class Controller {
 			loginStatus = loginService.login(loginRequest);
 			loginStatusJson = objectMapper.writeValueAsString(loginStatus);
 			
-			
-			Path path = Paths.get(loginStatusJsonFile);
-			
-//			StringBuffer sb = new StringBuffer();
-//			for (String line : Files.readAllLines(path)) {
-//				sb.append(line);
-//			}
-//			loginStatusJson = sb.toString();
-			
 			// write json to file
+			Path path = Paths.get(loginStatusJsonFile);
 			try ( Writer out = Files.newBufferedWriter(path, StandardCharsets.UTF_8) ) {
 	        	out.write(loginStatusJson);
 	        }
@@ -204,7 +249,7 @@ public class Controller {
 		} catch (EBaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 		return ResponseEntity.ok(loginStatusJson);
 		
 		
@@ -241,30 +286,30 @@ public class Controller {
 //		return ResponseEntity.ok(loginStatusJson);
 	}
 
-//	@PostMapping(path = "/login2", consumes = "application/json", produces = "application/json")
-//	public ResponseEntity<String> login2(@RequestBody LoginRequest loginRequest) {
-//
-//		String loginStatusJson = null;
-//
-//		try {
-//			Path path = Paths.get(loginStatusJsonFile);
-//			StringBuffer sb = new StringBuffer();
-//			for (String line : Files.readAllLines(path)) {
-//				sb.append(line);
-//			}
-//			loginStatusJson = sb.toString();
-//			
-//		} catch (StreamReadException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (DatabindException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
-//		return ResponseEntity.ok(loginStatusJson);
-//	}
+	@PostMapping(path = "/loginEbao2", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> loginEbao2(@RequestBody LoginRequest loginRequest) {
+
+		String loginStatusJson = null;
+
+		try {
+			Path path = Paths.get(loginStatusJsonFile);
+			StringBuffer sb = new StringBuffer();
+			for (String line : Files.readAllLines(path)) {
+				sb.append(line);
+			}
+			loginStatusJson = sb.toString();
+			
+		} catch (StreamReadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DatabindException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return ResponseEntity.ok(loginStatusJson);
+	}
 
 }
