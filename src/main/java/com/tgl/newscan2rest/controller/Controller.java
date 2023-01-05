@@ -140,8 +140,8 @@ public class Controller {
 
 			json = objectMapper.writeValueAsString(scanResult);
 			
-			scanResult = new ScanResult("0000", null);
-			json = objectMapper.writeValueAsString(scanResult);
+//			scanResult = new ScanResult("0000", null);
+//			json = objectMapper.writeValueAsString(scanResult);
 			//json = "{\"errorCode\":\"0000\",\"errorMessage\":null}";
 
 			logger.debug("json:" + json);
@@ -165,11 +165,11 @@ public class Controller {
 
 			json = objectMapper.writeValueAsString(scanResult);
 			
-			scanResult = new ScanResult("0000", null);
-			json = objectMapper.writeValueAsString(scanResult);
+//			scanResult = new ScanResult("0000", null);
+//			json = objectMapper.writeValueAsString(scanResult);
 			//json = "{\"errorCode\":\"0000\",\"errorMessage\":null}";
-			Thread.sleep(10000);
-
+			Thread.sleep(2000);
+			
 			logger.debug("json222:" + json);
 		
 		} catch (JsonProcessingException | InterruptedException e1) {
