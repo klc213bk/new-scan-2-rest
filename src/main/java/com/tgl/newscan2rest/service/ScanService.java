@@ -55,7 +55,13 @@ public class ScanService {
 			String config = ScanConfigUtil.readConfig();
 			scanConfig = ScanConfigUtil.parseHtml(config);
 			
-			List<TiffRecord> importedRecordList = ScanUtil.scan(imaging, sourceName, colorModeStr, duplexModeStr, queryFromPage, scanConfig);
+			long start = System.currentTimeMillis();
+			List<TiffRecord> importedRecordList = ScanUtil.scanMulti(imaging, sourceName, colorModeStr, duplexModeStr, queryFromPage, scanConfig);
+			
+			long end = System.currentTimeMillis();
+
+		    logger.debug("The ScanUtil.scanMulti took {} ms, size:{}", end - start, importedRecordList.size());
+			
 			//List<TiffRecord> importedRecordList = new ArrayList<>();
 			for (TiffRecord tiff : importedRecordList) {
 				logger.debug("tiff1.getFileName():" + tiff.getFileName());

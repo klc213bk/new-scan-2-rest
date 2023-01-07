@@ -9,10 +9,15 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import com.asprise.imaging.core.Imaging;
 import com.asprise.imaging.core.Request;
 import com.asprise.imaging.core.RequestOutputItem;
+import com.asprise.imaging.core.Result;
 import com.asprise.imaging.core.ResultImageItem;
 import com.asprise.imaging.core.scan.twain.Source;
 import com.asprise.imaging.core.scan.twain.TwainConstants;
@@ -29,6 +35,7 @@ import com.tgl.newscan2rest.StarterConst;
 import com.tgl.newscan2rest.bean.ScanConfig;
 import com.tgl.newscan2rest.bean.SignatureImgRule;
 import com.tgl.newscan2rest.bean.TiffRecord;
+import com.tgl.newscan2rest.service.ScanResultConvertService;
 
 public class ScanUtil {
 
@@ -39,7 +46,8 @@ public class ScanUtil {
 	
 	private static final String DEFAULT_APP_ID = StarterConst.APP_ID;
 	private static final int DEFAULT_WIN_HANDLE = 0;
-	private static final double BLANK_PAGE_THRESHOLD = 0.000001d;
+	
+	public static final double BLANK_PAGE_THRESHOLD = 0.000001d;
 
 	private static int stScanType;
 	private static int stScanDuplex;
@@ -1286,7 +1294,10 @@ public class ScanUtil {
 		if ( acquireFiles==null || acquireFiles.size()==0 ) {
 			return null;
 		}
-
+		logger.debug("acquireFiles size:{}", acquireFiles.size());
+		
+		long start = System.currentTimeMillis();
+		
 		List<ResultImageItem> imageItemList = result.getImageItems();
 
 		for ( int i=0; i<acquireFiles.size(); i++ ) {
@@ -1329,6 +1340,118 @@ public class ScanUtil {
 				logger.error("移除掃描暫存檔錯誤", e);
 			}
 		}
+
+		long end = System.currentTimeMillis();
+
+		logger.debug("The operation took {} ms, size:{}", end - start, recordList.size());
+	    
+		Date endTime = new Date();
+
+		if (logger.isDebugEnabled()) {
+			long processTime = (System.currentTimeMillis() - startTime) / 1000;
+			logger.debug("Scan finish! processTime={} seconds", processTime);
+		}
+
+	    return recordList;
+	}
+	public static List<TiffRecord> scanMulti(Imaging imaging, String sourceName, String colorModeStr, String duplexModeStr, boolean queryFromPage, ScanConfig scanConfig) {
+		long startTime = System.currentTimeMillis();
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("Scan start! sourceName={}, colorModeStr={}, duplexModeStr={}, queryFromPage={}, stLastScanOrder={}", sourceName, colorModeStr, duplexModeStr, queryFromPage, stLastScanOrder);
+		}
+
+		RequestOutputItem requestOutput = null;
+		int scanType = TwainConstants.TWPT_BW;
+		int scanDuplex = TwainConstants.TWDX_NONE;
+		boolean duplexEnabled = false;
+
+		if ( Constant.COLOR_MODE_BLACK_WHITE.equals(colorModeStr) ) {
+			requestOutput = new RequestOutputItem(Imaging.OUTPUT_SAVE, Imaging.FORMAT_TIF);
+			requestOutput.setTiffCompression(Imaging.TIFF_COMPRESSION_CCITT_G4);
+		} else if ( Constant.COLOR_MODE_COLOR.equals(colorModeStr) ) {
+			scanType = TwainConstants.TWPT_RGB;
+			requestOutput = new RequestOutputItem(Imaging.OUTPUT_SAVE, Imaging.FORMAT_JPG);
+		}
+
+		requestOutput.setSavePath(SCAN_TEMP_DIR + "\\${TMS}${EXT}");
+		requestOutput.setForceSinglePage(true);
+		
+		System.out.println("SCAN_TEMP_DIR:" + (SCAN_TEMP_DIR + "\\${TMS}${EXT}"));
+
+		if ( Constant.DUPLEX_MODE_SINGLE_PAGE.equals(duplexModeStr) ) {
+//			scanDuplex = TwainConstants.TWDX_1PASSDUPLEX;
+			scanDuplex = TwainConstants.TWDX_NONE;
+		} else if ( Constant.DUPLEX_MODE_DOUBLE_PAGE.equals(duplexModeStr) ) {
+			scanDuplex = TwainConstants.TWDX_2PASSDUPLEX;
+			duplexEnabled = true;
+		}
+
+		stScanType = scanType;
+		stScanDuplex = scanDuplex;
+
+		List<TiffRecord> recordList = new ArrayList<TiffRecord>();
+
+		Map<String, String> algoMap = new HashMap<String, String>();
+		algoMap.put("type", "B"); // Types to try: DEFAULT, A, B, C 
+
+		Request request = new Request()
+			.addOutputItem(requestOutput)
+			.setRecognizeBarcodes(true)
+			.setBarcodesSettings(algoMap)
+//			.setDetectBlankPages("false") 不偵測空白頁，由掃描器設定[空白頁檢測]控制
+			.setBlankPageThreshold(BLANK_PAGE_THRESHOLD) // 因部份條碼貼紙或自行列印的條碼辨識不到，故由 0.02 降低至 0.000001 (與舊版掃描設定相同)
+			.setTwainCap(TwainConstants.ICAP_PIXELTYPE, stScanType)
+			.setTwainCap(TwainConstants.CAP_DUPLEXENABLED, duplexEnabled)
+			.setTwainCap(TwainConstants.CAP_DUPLEX, scanDuplex)
+			;
+
+		if (logger.isDebugEnabled()) {
+			retrieveExtAttributes(request);
+		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("imaging.scan()");
+			logger.debug("request = {}", request.toJson(true));
+		}
+
+		// 開始掃描
+		com.asprise.imaging.core.Result result = imaging.scan(request, sourceName, false, true);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("result = {}", result == null ? "(null)" : result.toJson(true));
+		}
+
+		List<File> acquireFiles = result.getImageFiles();
+		if ( acquireFiles==null || acquireFiles.size()==0 ) {
+			return null;
+		}
+		logger.debug("acquireFiles size:{}", acquireFiles.size());
+		
+		long start = System.currentTimeMillis();
+		
+		Executor executor = Executors.newFixedThreadPool(10);
+	    
+	    List<Integer> integerList = new ArrayList<>();
+	    for ( int i=0; i<acquireFiles.size(); i++ ) {
+	    	integerList.add(Integer.valueOf(i));
+	    }
+	    List<CompletableFuture<List<TiffRecord>>> futures = integerList.stream()
+	    .map(idx -> CompletableFuture.supplyAsync(() -> ScanResultConvertService.converToTiffRecords(idx, result, queryFromPage, scanConfig), executor))
+	    .collect(Collectors.toList());
+	    
+	    
+	    List<List<TiffRecord>> records = futures.stream()
+	            .map(CompletableFuture::join)
+	            .collect(Collectors.toList());
+	    
+	    for (List<TiffRecord> ls : records) {
+	    	recordList.addAll(ls);
+	    }
+	    
+	    long end = System.currentTimeMillis();
+
+	    logger.debug("The operation2 took {} ms, size:{}", end - start, recordList.size());
 
 		Date endTime = new Date();
 

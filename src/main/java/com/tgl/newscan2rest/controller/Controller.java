@@ -165,8 +165,8 @@ public class Controller {
 
 			json = objectMapper.writeValueAsString(scanResult);
 			
-//			scanResult = new ScanResult("0000", null);
-//			json = objectMapper.writeValueAsString(scanResult);
+			scanResult = new ScanResult("0000", null);
+			json = objectMapper.writeValueAsString(scanResult);
 			//json = "{\"errorCode\":\"0000\",\"errorMessage\":null}";
 			Thread.sleep(2000);
 			
