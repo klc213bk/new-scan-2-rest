@@ -49,6 +49,8 @@ public class ScanService {
 		String colorModeStr = scanRequest.getColorMode();
 		String duplexModeStr = scanRequest.getDuplexMode();
 		boolean queryFromPage = scanRequest.isQueryFromPage();
+		int lastScanOrder = Integer.valueOf(scanRequest.getLastScanOrder());
+		
 		ScanConfig scanConfig = null;
 		ScanResult scanResult = null;
 		try {
@@ -56,11 +58,14 @@ public class ScanService {
 			scanConfig = ScanConfigUtil.parseHtml(config);
 			
 			long start = System.currentTimeMillis();
-			List<TiffRecord> importedRecordList = ScanUtil.scanMulti(imaging, sourceName, colorModeStr, duplexModeStr, queryFromPage, scanConfig);
+			
+			ScanUtil.setLastScanOrder(lastScanOrder);
+			
+			List<TiffRecord> importedRecordList = ScanUtil.scan(imaging, sourceName, colorModeStr, duplexModeStr, queryFromPage, scanConfig);
 			
 			long end = System.currentTimeMillis();
 
-		    logger.debug("The ScanUtil.scanMulti took {} ms, size:{}", end - start, importedRecordList.size());
+		    logger.debug("The ScanUtil.scan took {} ms, size:{}", end - start, importedRecordList.size());
 			
 			//List<TiffRecord> importedRecordList = new ArrayList<>();
 			for (TiffRecord tiff : importedRecordList) {

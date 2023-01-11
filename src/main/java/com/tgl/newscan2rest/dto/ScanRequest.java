@@ -5,6 +5,7 @@ public class ScanRequest {
 	private String colorMode;
 	private String duplexMode;
 	private boolean queryFromPage;
+	private String lastScanOrder;
 	
 	public String getSourceName() {
 		return sourceName;
@@ -29,6 +30,12 @@ public class ScanRequest {
 	}
 	public void setQueryFromPage(boolean queryFromPage) {
 		this.queryFromPage = queryFromPage;
+	}
+	public String getLastScanOrder() {
+		return lastScanOrder;
+	}
+	public void setLastScanOrder(String lastScanOrder) {
+		this.lastScanOrder = lastScanOrder;
 	}
 	
 }

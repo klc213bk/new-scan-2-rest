@@ -36,8 +36,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tgl.newscan2rest.bean.DeleteRecord;
 import com.tgl.newscan2rest.bean.ImageRecordSet;
 import com.tgl.newscan2rest.bean.LoginStatus;
+import com.tgl.newscan2rest.bean.RestResult;
 import com.tgl.newscan2rest.bean.ScanConfig;
 import com.tgl.newscan2rest.bean.ScanConfigResult;
 import com.tgl.newscan2rest.bean.ScanResult;
@@ -46,6 +48,7 @@ import com.tgl.newscan2rest.dto.Greeting;
 import com.tgl.newscan2rest.dto.LoginRequest;
 import com.tgl.newscan2rest.dto.ScanRequest;
 import com.tgl.newscan2rest.http.EBaoException;
+import com.tgl.newscan2rest.service.DeleteService;
 import com.tgl.newscan2rest.service.LoginService;
 import com.tgl.newscan2rest.service.ScanService;
 import com.tgl.newscan2rest.util.ScanConfigUtil;
@@ -71,6 +74,9 @@ public class Controller {
 
 	@Autowired
 	LoginService loginService;
+	
+	@Autowired
+	DeleteService deleteService;
 
 	@GetMapping("/greeting/{name}")
 	public Greeting greeting(@PathVariable String name) {
@@ -127,7 +133,33 @@ public class Controller {
 		return ResponseEntity.ok(json);
 		
 	}
-
+	@PostMapping(path = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> delete(@RequestBody DeleteRecord deleteRecord) {
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = "";
+		RestResult restResult = null;
+		
+		
+		
+		try {
+			
+			deleteService.delete(deleteRecord);
+			
+			restResult = new RestResult("0000", null);
+			
+			json = objectMapper.writeValueAsString(restResult);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			json = "{\"errorCode\":\"-1100\",\"errorMessage\":\"see logs for details\"}";
+			
+		}
+		
+		return ResponseEntity.ok(json);
+	}
+	
 	@PostMapping(path = "/scan", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> scan(@RequestBody ScanRequest scanRequest) {
 
@@ -168,11 +200,10 @@ public class Controller {
 			scanResult = new ScanResult("0000", null);
 			json = objectMapper.writeValueAsString(scanResult);
 			//json = "{\"errorCode\":\"0000\",\"errorMessage\":null}";
-			Thread.sleep(2000);
 			
 			logger.debug("json222:" + json);
 		
-		} catch (JsonProcessingException | InterruptedException e1) {
+		} catch (JsonProcessingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
