@@ -261,9 +261,9 @@ public class Controller {
 		logger.debug("Controller copy is complete");
 		return ResponseEntity.ok(json);
 	}
-	@PostMapping(path = "/uploadAll", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> uploadAll() {
-		logger.debug("Controller uploadAll is called");
+	@PostMapping(path = "/upload", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> upload() {
+		logger.debug("Controller upload is called");
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = "";
@@ -276,7 +276,7 @@ public class Controller {
 			
 			json = objectMapper.writeValueAsString(restResult);
 			
-			logger.debug("uploadAll success, json:" + json);
+			logger.debug("upload success, json:" + json);
 		} catch (Exception e) {
 			restResult = new RestResult("-1000", e.getMessage());
 			
@@ -291,7 +291,7 @@ public class Controller {
 			
 		}
 		
-		logger.debug("Controller uploadAll is complete");
+		logger.debug("Controller upload is complete");
 		return ResponseEntity.ok(json);
 	}
 	@PostMapping(path = "/uploadSaveTiffData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
