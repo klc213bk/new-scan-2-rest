@@ -1,0 +1,1020 @@
+<scanconfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> 
+ <envionment> 
+  <setting name="UploadURL">
+   http://10.67.67.8:9080/ls/image/ImageScan.do?Action=upload
+  </setting> 
+ </envionment> 
+ <uiconfig font="Arial" fontsize="10" imagewidth="600"> 
+  <stringtable> 
+   <item id="BUTTON_SET" caption="設置" /> 
+   <item id="STATIC_INDEXSET" caption="索引設置" /> 
+   <item id="BUTTON_DELETE" caption="刪除" /> 
+   <item id="BUTTON_BATCH_DELETE" caption="整批刪除" /> 
+   <item id="DIALOG_TEXT_1" caption="請輸入欲刪除的序號區間：" /> 
+   <item id="DIALOG_TEXT_2" caption="至" /> 
+   <item id="DIALOG_TEXT_3" caption="刪除序號有非空白影像，請確認！" /> 
+   <item id="BUTTON_COPY" caption="複製" /> 
+   <item id="BUTTON_IMPORT" caption="導入" /> 
+   <item id="GROUPBOX_FILEUPLOAD" caption="上傳文件" /> 
+   <item id="STATIC_SUCCESSCOUNT" caption="成功合計" /> 
+   <item id="STATIC_UPLOADCOUNT" caption="上傳合計" /> 
+   <item id="STATIC_FAILEDCOUNT" caption="失敗合計" /> 
+   <item id="BUTTON_UPLOAD" caption="上傳" /> 
+   <item id="BUTTON_UPLOADALL" caption="上傳全部" /> 
+   <item id="BUTTON_DETAILINFO" caption="詳細資訊" /> 
+   <item id="GROUPBOX_IMAGEOPERATION" caption="影像操作" /> 
+   <item id="BUTTON_ZOOMOUT" caption="預覽縮小" /> 
+   <item id="BUTTON_ZOOMIN" caption="預覽放大" /> 
+   <item id="BUTTON_IMAGEADJUST" caption="旋轉" /> 
+   <item id="BUTTON_SCANNERCONFIG" caption="掃描配置" /> 
+   <item id="BUTTON_STARTSCAN" caption="開始掃描" /> 
+   <item id="SINGLE_PAGE_SCAN" caption="單面" /> 
+   <item id="DOUBLE_PAGE_SCAN" caption="雙面" /> 
+   <item id="BUTTON_REPLACE" caption="用掃描編號替換" /> 
+   <item id="BUTTON_AFTER" caption="放在掃描最後" /> 
+   <item id="BUTTON_CANCEL" caption="取消" /> 
+   <item id="BUTTON_OK" caption="確定" /> 
+   <item id="DIALOG_ERRINFO" caption="上傳錯誤" /> 
+   <item id="STATIC_ERR_INFO" caption="上傳掃描檔錯誤！" /> 
+   <item id="BUTTON_DETAIL" caption="明細" /> 
+   <item id="BUTTON_CLOSE" caption="關  閉" /> 
+   <item id="DIALOG_ROTATION" caption="翻轉設置" /> 
+   <item id="STATIC_ANGLE" caption="角度" /> 
+   <item id="DIALOG_UPLOAD" caption="上傳記錄資訊" /> 
+   <item id="BUTTON_CLEAR" caption="清空" /> 
+   <item id="MSG-ERR-PIC-003" caption="請輸入" /> 
+   <item id="MSG-ERR-PIC-004" caption="[簽名檔影像] 請勿輸入頁碼！" /> 
+   <item id="MSG-ERR-CODE-13712" caption="無效保單號" /> 
+   <item id="MSG-ERR-CODE-15" caption="未找到可被替換或可被插入的影像！" /> 
+   <item id="MSG-ERR-CODE-16" caption="未找到可被替換或可被插入的影像！" /> 
+   <item id="MSG-ERR-CODE-400" caption="該保全變更已還原，請確認文件編號是否正確。" /> 
+   <item id="IMAGE_DUPLICATE" caption="重複上傳" /> 
+   <item id="PARAMETER_NOT_ENOUGH" caption="參數傳輸不全" /> 
+   <item id="NOT_LOGIN" caption="對不起，您沒有登錄或登錄資訊丟失，請重新登錄" /> 
+   <item id="UPDATE_AUTHORITY_FAIL" caption="此帳號無替換影像的操作權限！" /> 
+   <item id="MainFileType" caption="影像主類型" /> 
+   <item id="FileType" caption="影像子類型" /> 
+   <item id="FileCode" caption="文件編號" /> 
+   <item id="FilePage" caption="頁碼" /> 
+   <item id="CompanyCode" caption="公司碼(團險保單號碼)" /> 
+   <item id="PersonalCode" caption="個人碼" /> 
+  </stringtable> 
+  <imagerecordcolumns> 
+   <column name="ScanOrder" caption="序號" width="45" /> 
+   <column name="FileCode" caption="文件編號" width="130" /> 
+   <column name="MainFileType" caption="影像主類型" width="60" /> 
+   <column name="FileType" caption="影像子類型" width="350" /> 
+   <column name="FilePage" caption="頁碼" width="60" /> 
+   <column name="ScanTime" caption="掃瞄日期/時間" width="120" /> 
+   <column name="actionType" caption="備註" width="45" /> 
+  </imagerecordcolumns> 
+  <splitsettings> 
+   <splitoption name="1/1" caption="1/1" /> 
+   <splitoption name="1/2H" caption="1/2H" /> 
+   <splitoption name="1/2V" caption="1/2V" /> 
+   <splitoption name="1/4" caption="1/4" /> 
+  </splitsettings> 
+  <signaturerule> 
+   <rule subfilecode="UNBA010" pageno="2" posx="0.5" posy="21" length="7" width="20.5" /> 
+   <rule subfilecode="UNBA012" pageno="2" posx="0.2" posy="18" length="9" width="20.6" /> 
+   <rule subfilecode="UNBA022" pageno="4" posx="0.5" posy="17" length="8" width="20.5" /> 
+   <rule subfilecode="UNBA032" pageno="2" posx="0.5" posy="22" length="4.5" width="20.5" /> 
+   <rule subfilecode="UNBA033" pageno="2" posx="0.5" posy="23" length="3" width="20.5" /> 
+   <rule subfilecode="UNBA033" pageno="4" posx="0.5" posy="23.5" length="2.5" width="20.5" /> 
+   <rule subfilecode="UNBA034" pageno="2" posx="0.5" posy="21.5" length="2.5" width="20" /> 
+   <rule subfilecode="UNBA034" pageno="2" posx="0.5" posy="23" length="3" width="20" /> 
+   <rule subfilecode="UNBA036" pageno="4" posx="0.5" posy="24" length="2.5" width="20" /> 
+   <rule subfilecode="UNBA036" pageno="6" posx="0.2" posy="24.3" length="2.5" width="20.5" /> 
+   <rule subfilecode="UNBA036" pageno="7" posx="0.2" posy="19.5" length="8.5" width="20.7" /> 
+   <rule subfilecode="UNBA037" pageno="3" posx="0.2" posy="22.5" length="3.5" width="20.7" /> 
+   <rule subfilecode="UNBA037" pageno="4" posx="0.2" posy="20" length="8" width="20.7" /> 
+   <rule subfilecode="UNBA039" pageno="2" posx="0.2" posy="23" length="3.5" width="20" /> 
+   <rule subfilecode="UNBA039" pageno="4" posx="0.2" posy="23.5" length="3" width="20" /> 
+   <rule subfilecode="UNBA038" pageno="2" posx="0.5" posy="22" length="5" width="20.5" /> 
+   <rule subfilecode="UNBA001" pageno="5" posx="0.5" posy="21.5" length="8" width="20" /> 
+   <rule subfilecode="UNBA001" pageno="6" posx="0.5" posy="20" length="8" width="20" /> 
+   <rule subfilecode="UNBA002" pageno="2" posx="0.5" posy="21" length="8" width="20" /> 
+   <rule subfilecode="UNBA004" pageno="2" posx="0.5" posy="23" length="2.5" width="20.2" /> 
+   <rule subfilecode="UNBA004" pageno="4" posx="0.5" posy="24" length="2.5" width="20" /> 
+   <rule subfilecode="UNBA013" pageno="1" posx="0.5" posy="23.5" length="4" width="20" /> 
+   <rule subfilecode="UNBA014" pageno="1" posx="0.5" posy="24" length="2.5" width="20" /> 
+   <rule subfilecode="UNBA014" pageno="3" posx="0.5" posy="24.5" length="2" width="20" /> 
+   <rule subfilecode="UNBA016" pageno="2" posx="0.5" posy="22.5" length="4.5" width="20.4" /> 
+   <rule subfilecode="UNBA016" pageno="4" posx="0.5" posy="22.5" length="4.5" width="20.4" /> 
+   <rule subfilecode="UNBA018" pageno="2" posx="0.5" posy="23" length="3" width="20.5" /> 
+   <rule subfilecode="UNBA018" pageno="4" posx="0.5" posy="23.5" length="2.5" width="20.5" /> 
+   <rule subfilecode="UNBA019" pageno="3" posx="1" posy="22.5" length="3" width="20.5" /> 
+   <rule subfilecode="UNBA019" pageno="4" posx="0.5" posy="20" length="8" width="20.2" /> 
+   <rule subfilecode="UNBA020" pageno="2" posx="0.5" posy="22.7" length="4" width="20.5" /> 
+   <rule subfilecode="UNBA020" pageno="4" posx="0.5" posy="24" length="3" width="20.5" /> 
+   <rule subfilecode="UNBA011" pageno="2" posx="0.2" posy="20" length="8" width="20.6" /> 
+   <rule subfilecode="UNBA006" pageno="2" posx="0.5" posy="21" length="8" width="20.3" /> 
+   <rule subfilecode="UNBA006" pageno="3" posx="0.5" posy="23.5" length="5.3" width="20.3" /> 
+   <rule subfilecode="UNBA007" pageno="3" posx="0.5" posy="23" length="3" width="20" /> 
+   <rule subfilecode="UNBA007" pageno="4" posx="0.3" posy="23.5" length="5.5" width="20.3" /> 
+   <rule subfilecode="UNBA007" pageno="5" posx="0.4" posy="20" length="8.2" width="20.2" /> 
+   <rule subfilecode="UNBA008" pageno="1" posx="0.5" posy="25" length="3" width="20.5" /> 
+   <rule subfilecode="UNBA008" pageno="2" posx="0.5" posy="24" length="4.5" width="20.5" /> 
+   <rule subfilecode="UNBA009" pageno="1" posx="0.5" posy="24.3" length="1.7" width="20" /> 
+   <rule subfilecode="UNBA021" pageno="4" posx="0.5" posy="16.5" length="8.5" width="20.5" /> 
+   <rule subfilecode="UNBA040" pageno="6" posx="0.5" posy="22.3" length="6.8" width="20" /> 
+   <rule subfilecode="UNBA040" pageno="7" posx="0.5" posy="22.5" length="3.5" width="20" /> 
+   <rule subfilecode="UNBA042" pageno="3" posx="0.5" posy="22.5" length="3.5" width="20" /> 
+   <rule subfilecode="UNBA042" pageno="5" posx="0.5" posy="24" length="2.5" width="20" /> 
+   <rule subfilecode="UNBA043" pageno="2" posx="0.5" posy="21.5" length="4" width="20.5" /> 
+   <rule subfilecode="UNBA041" pageno="2" posx="0.5" posy="23.5" length="5" width="20" /> 
+   <rule subfilecode="UNBA041" pageno="3" posx="0.5" posy="22" length="4.5" width="20" /> 
+   <rule subfilecode="UNBA055" pageno="2" posx="0.2" posy="24" length="5" width="20.5" /> 
+   <rule subfilecode="UNBA055" pageno="3" posx="0.2" posy="21" length="4" width="20.8" /> 
+   <rule subfilecode="UNBA055" pageno="4" posx="0.2" posy="24" length="5" width="20.8" /> 
+   <rule subfilecode="UNBA056" pageno="3" posx="0.2" posy="21" length="4" width="20.8" /> 
+   <rule subfilecode="UNBA056" pageno="4" posx="0.2" posy="24" length="5" width="20.8" /> 
+   <rule subfilecode="UNBA057" pageno="2" posx="0.4" posy="22" length="3.5" width="20.2" /> 
+   <rule subfilecode="UNBA057" pageno="3" posx="0.4" posy="23.5" length="5" width="20.2" /> 
+   <rule subfilecode="UNBA058" pageno="2" posx="0.4" posy="23.3" length="3.2" width="20.1" /> 
+   <rule subfilecode="UNBA058" pageno="3" posx="0.4" posy="23.9" length="4.3" width="20.2" /> 
+   <rule subfilecode="UNBA059" pageno="3" posx="0.3" posy="21.1" length="5" width="20.4" /> 
+   <rule subfilecode="UNBA059" pageno="4" posx="0.4" posy="23.1" length="5" width="20.2" /> 
+   <rule subfilecode="UNBA060" pageno="3" posx="0.3" posy="21.2" length="4.5" width="20.3" /> 
+   <rule subfilecode="UNBA060" pageno="4" posx="0.3" posy="23" length="5" width="20.2" /> 
+   <rule subfilecode="UNBA062" pageno="2" posx="0.2" posy="23.5" length="5" width="20.8" /> 
+   <rule subfilecode="UNBA062" pageno="3" posx="0.2" posy="21" length="6" width="20.8" /> 
+   <rule subfilecode="UNBA044" pageno="2" posx="0.2" posy="20" length="6" width="20.5" /> 
+   <rule subfilecode="UNBA044" pageno="3" posx="0.2" posy="23" length="5.8" width="20.6" /> 
+   <rule subfilecode="UNBA045" pageno="2" posx="0.4" posy="23" length="3.5" width="19.9" /> 
+   <rule subfilecode="UNBA045" pageno="3" posx="0.4" posy="23" length="5" width="20" /> 
+   <rule subfilecode="UNBA046" pageno="3" posx="0.4" posy="21.5" length="4.2" width="20.2" /> 
+   <rule subfilecode="UNBA046" pageno="4" posx="0.4" posy="23" length="4.5" width="20" /> 
+   <rule subfilecode="UNBA047" pageno="2" posx="0.5" posy="22.5" length="5" width="20.5" /> 
+   <rule subfilecode="UNBA047" pageno="4" posx="0.5" posy="22.5" length="4" width="14.5" /> 
+   <rule subfilecode="UNBA048" pageno="2" posx="0.4" posy="23" length="4" width="20.2" /> 
+   <rule subfilecode="UNBA048" pageno="3" posx="0.4" posy="23" length="5.1" width="20" /> 
+   <rule subfilecode="UNBA049" pageno="2" posx="0.5" posy="23" length="3.5" width="20.5" /> 
+   <rule subfilecode="UNBA049" pageno="4" posx="0.5" posy="24" length="3.5" width="14.5" /> 
+   <rule subfilecode="UNBA050" pageno="2" posx="0.5" posy="23" length="4" width="20" /> 
+   <rule subfilecode="UNBA063" pageno="3" posx="0.2" posy="19.5" length="5.5" width="20.3" /> 
+   <rule subfilecode="UNBA063" pageno="5" posx="0.5" posy="22.5" length="4" width="20" /> 
+   <rule subfilecode="UNBA054" pageno="2" posx="0.2" posy="24" length="5" width="20.8" /> 
+   <rule subfilecode="UNBA054" pageno="3" posx="0.2" posy="23" length="3.5" width="20.8" /> 
+   <rule subfilecode="UNBA061" pageno="3" posx="0.3" posy="22.5" length="6.7" width="20.4" /> 
+   <rule subfilecode="UNBA061" pageno="4" posx="0.2" posy="20" length="5.4" width="20.6" /> 
+   <rule subfilecode="UNBA051" pageno="2" posx="0.2" posy="24.5" length="4.5" width="20.8" /> 
+   <rule subfilecode="UNBA051" pageno="3" posx="0.2" posy="22.5" length="3.5" width="20.8" /> 
+   <rule subfilecode="UNBA051" pageno="4" posx="0.2" posy="23" length="6" width="20.8" /> 
+   <rule subfilecode="UNBA052" pageno="2" posx="0.5" posy="20.5" length="4.5" width="20.5" /> 
+   <rule subfilecode="UNBA053" pageno="3" posx="0.5" posy="19" length="5" width="20.5" /> 
+   <rule subfilecode="UNBA053" pageno="5" posx="0.5" posy="24" length="3.5" width="20.5" /> 
+   <rule subfilecode="UNBA075" pageno="1" posx="0.5" posy="24" length="4" width="20" /> 
+   <rule subfilecode="UNBA064" pageno="3" posx="0.5" posy="23.5" length="6" width="20" /> 
+   <rule subfilecode="UNBA064" pageno="4" posx="0.5" posy="21" length="5.5" width="20" /> 
+   <rule subfilecode="UNBA070" pageno="2" posx="0.2" posy="24" length="5" width="20.5" /> 
+   <rule subfilecode="UNBA070" pageno="3" posx="0.2" posy="22" length="4" width="20.5" /> 
+   <rule subfilecode="UNBA070" pageno="4" posx="0.2" posy="24" length="5" width="20.5" /> 
+   <rule subfilecode="UNBA065" pageno="3" posx="0.3" posy="19" length="6.1" width="20.2" /> 
+   <rule subfilecode="UNBA065" pageno="4" posx="0.3" posy="23" length="6" width="20.2" /> 
+   <rule subfilecode="UNBA068" pageno="2" posx="0.3" posy="20.3" length="5.2" width="20.5" /> 
+   <rule subfilecode="UNBA068" pageno="3" posx="0.3" posy="22.5" length="6.1" width="20.2" /> 
+   <rule subfilecode="UNBA074" pageno="3" posx="0.2" posy="21" length="6" width="20.3" /> 
+   <rule subfilecode="UNBA066" pageno="3" posx="0.3" posy="19" length="6.5" width="20.5" /> 
+   <rule subfilecode="UNBA066" pageno="4" posx="0.3" posy="23" length="5.7" width="20.2" /> 
+   <rule subfilecode="UNBA072" pageno="3" posx="0.2" posy="19" length="9.5" width="20.2" /> 
+   <rule subfilecode="UNBA069" pageno="2" posx="0.2" posy="24" length="5" width="20.5" /> 
+   <rule subfilecode="UNBA069" pageno="3" posx="0.2" posy="22" length="4" width="20.5" /> 
+   <rule subfilecode="UNBA069" pageno="4" posx="0.2" posy="24" length="5" width="20.5" /> 
+   <rule subfilecode="UNBA067" pageno="2" posx="0.3" posy="21" length="6.2" width="20.2" /> 
+   <rule subfilecode="UNBA067" pageno="3" posx="0.3" posy="22" length="7.2" width="20.2" /> 
+   <rule subfilecode="UNBA073" pageno="3" posx="0.5" posy="22.5" length="5" width="20" /> 
+   <rule subfilecode="UNBB039" pageno="1" posx="0.5" posy="21" length="6" width="20.5" /> 
+   <rule subfilecode="UNBB040" pageno="1" posx="0.5" posy="20" length="4" width="20" /> 
+   <rule subfilecode="UNBB037" pageno="1" posx="0.5" posy="22" length="6.5" width="20.5" /> 
+   <rule subfilecode="UNBB041" pageno="1" posx="0.5" posy="22" length="6" width="20.5" /> 
+   <rule subfilecode="UNBB042" pageno="1" posx="1" posy="14.5" length="5.5" width="18.5" /> 
+   <rule subfilecode="UNBB043" pageno="1" posx="0.5" posy="19" length="9" width="20" /> 
+   <rule subfilecode="UNBB044" pageno="1" posx="0.5" posy="20" length="9" width="20" /> 
+   <rule subfilecode="UNBB049" pageno="1" posx="0.5" posy="18" length="9" width="20" /> 
+   <rule subfilecode="UNBB050" pageno="6" posx="0.5" posy="21" length="8.5" width="20" /> 
+   <rule subfilecode="UNBB051" pageno="6" posx="0.5" posy="21" length="8.5" width="20" /> 
+   <rule subfilecode="UNBB052" pageno="6" posx="0.5" posy="21" length="8.5" width="20" /> 
+   <rule subfilecode="UNBA078" pageno="2" posx="0.2" posy="22" length="4.5" width="20.5" /> 
+   <rule subfilecode="UNBA078" pageno="3" posx="0.2" posy="23" length="6" width="20.2" /> 
+   <rule subfilecode="UNBB053" pageno="6" posx="0.5" posy="21" length="8.5" width="20" /> 
+   <rule subfilecode="UNBB054" pageno="1" posx="0.5" posy="20" length="8.5" width="20" /> 
+   <rule subfilecode="UNBB056" pageno="2" posx="0.2" posy="2.5" length="25" width="20.8" /> 
+   <rule subfilecode="UNBB058" pageno="1" posx="0.5" posy="19" length="7" width="20" /> 
+   <rule subfilecode="UNBB059" pageno="1" posx="0.5" posy="19" length="7" width="20" /> 
+   <rule subfilecode="UNBB060" pageno="1" posx="0.5" posy="22" length="5" width="20" /> 
+   <rule subfilecode="UNBB061" pageno="1" posx="0.5" posy="19" length="7" width="20" /> 
+   <rule subfilecode="UNBB064" pageno="2" posx="0.5" posy="4" length="11" width="20.5" /> 
+   <rule subfilecode="UNBB066" pageno="3" posx="0.5" posy="14" length="10" width="20.5" /> 
+   <rule subfilecode="UNBN003" pageno="2" posx="4.5" posy="20" length="6.5" width="16.5" /> 
+   <rule subfilecode="UNBN005" pageno="1" posx="1" posy="14.5" length="5.5" width="19.5" /> 
+   <rule subfilecode="UNBN006" pageno="1" posx="9.5" posy="4" length="4.5" width="11.5" /> 
+   <rule subfilecode="UNBN006" pageno="3" posx="9.5" posy="4" length="4.5" width="11.5" /> 
+   <rule subfilecode="UNBN007" pageno="1" posx="0.5" posy="23" length="4" width="20.5" /> 
+   <rule subfilecode="UNBN009" pageno="8" posx="0.5" posy="21.5" length="4.5" width="20.5" /> 
+   <rule subfilecode="UNBN012" pageno="1" posx="1" posy="18" length="7" width="19.5" /> 
+   <rule subfilecode="UNBA079" pageno="3" posx="0.5" posy="22.5" length="5.5" width="20" /> 
+   <rule subfilecode="UNBA079" pageno="4" posx="0.5" posy="22" length="4" width="20" /> 
+   <rule subfilecode="UNBB001" pageno="1" posx="0.5" posy="22" length="7" width="20.4" /> 
+   <rule subfilecode="UNBB002" pageno="1" posx="0.5" posy="18" length="8" width="20.4" /> 
+   <rule subfilecode="UNBB003" pageno="1" posx="1" posy="18" length="6" width="19.5" /> 
+   <rule subfilecode="UNBB004" pageno="1" posx="0.5" posy="7.5" length="6" width="20.5" /> 
+   <rule subfilecode="UNBB005" pageno="1" posx="0.5" posy="22" length="5.5" width="20.5" /> 
+   <rule subfilecode="UNBB006" pageno="1" posx="1" posy="12" length="8" width="19.5" /> 
+   <rule subfilecode="UNBB009" pageno="1" posx="1" posy="19" length="10" width="19.5" /> 
+   <rule subfilecode="UNBB011" pageno="1" posx="0.5" posy="18" length="6" width="20.5" /> 
+   <rule subfilecode="UNBB012" pageno="1" posx="0.5" posy="15" length="4.5" width="20.5" /> 
+   <rule subfilecode="UNBB014" pageno="1" posx="0.5" posy="15.5" length="8" width="20.5" /> 
+   <rule subfilecode="UNBB015" pageno="1" posx="1" posy="11" length="9.5" width="19" /> 
+   <rule subfilecode="UNBB017" pageno="1" posx="0.5" posy="17.5" length="9.5" width="20.5" /> 
+   <rule subfilecode="UNBB018" pageno="1" posx="1.5" posy="22" length="3.5" width="18.5" /> 
+   <rule subfilecode="UNBB019" pageno="1" posx="1" posy="14.5" length="15" width="20" /> 
+   <rule subfilecode="UNBB019" pageno="2" posx="1" posy="0.5" length="29" width="20" /> 
+   <rule subfilecode="UNBB020" pageno="1" posx="1" posy="14.5" length="15" width="19.5" /> 
+   <rule subfilecode="UNBB020" pageno="2" posx="1" posy="20" length="9" width="19.5" /> 
+   <rule subfilecode="UNBB021" pageno="1" posx="1" posy="14.5" length="15" width="20" /> 
+   <rule subfilecode="UNBB021" pageno="2" posx="1" posy="0.5" length="29" width="20" /> 
+   <rule subfilecode="UNBB022" pageno="1" posx="1" posy="16" length="6" width="20" /> 
+   <rule subfilecode="UNBB023" pageno="1" posx="0.5" posy="16" length="11.5" width="20.5" /> 
+   <rule subfilecode="UNBB023" pageno="2" posx="0.5" posy="16" length="11.5" width="20.5" /> 
+   <rule subfilecode="UNBB023" pageno="3" posx="0.5" posy="16" length="11.5" width="20.5" /> 
+   <rule subfilecode="UNBB023" pageno="4" posx="0.5" posy="16" length="11.5" width="20.5" /> 
+   <rule subfilecode="UNBB025" pageno="1" posx="0.5" posy="13" length="4.5" width="20.5" /> 
+   <rule subfilecode="UNBA077" pageno="3" posx="0.2" posy="21" length="8" width="20.5" /> 
+   <rule subfilecode="UNBA077" pageno="4" posx="0.2" posy="23" length="6" width="20.2" /> 
+   <rule subfilecode="UNBB026" pageno="1" posx="0.3" posy="18" length="7" width="20.1" /> 
+   <rule subfilecode="UNBB029" pageno="1" posx="0.5" posy="23" length="4" width="20.5" /> 
+   <rule subfilecode="UNBB032" pageno="1" posx="0.5" posy="17" length="5.5" width="20" /> 
+   <rule subfilecode="UNBB033" pageno="1" posx="0.5" posy="15" length="6" width="20" /> 
+   <rule subfilecode="UNBB034" pageno="1" posx="0.5" posy="22" length="3.5" width="20" /> 
+   <rule subfilecode="UNBB035" pageno="1" posx="0.5" posy="5.5" length="4.5" width="20" /> 
+   <rule subfilecode="UNBB036" pageno="1" posx="0.5" posy="21.5" length="4" width="20" /> 
+   <rule subfilecode="UNBN014" pageno="1" posx="0.5" posy="22" length="6.5" width="20" /> 
+   <rule subfilecode="UNBN015" pageno="1" posx="1" posy="19" length="4.5" width="19" /> 
+   <rule subfilecode="UNBN017" pageno="1" posx="0.5" posy="22.5" length="6.5" width="20.5" /> 
+   <rule subfilecode="UNBN028" pageno="1" posx="1" posy="15.5" length="5" width="19" /> 
+   <rule subfilecode="UNBN051" pageno="1" posx="0.5" posy="21" length="6" width="19" /> 
+   <rule subfilecode="UNBN052" pageno="1" posx="0.5" posy="18" length="4" width="20" /> 
+   <rule subfilecode="UNBN053" pageno="1" posx="0.5" posy="22" length="4.5" width="20.5" /> 
+   <rule subfilecode="UNBN054" pageno="1" posx="0.5" posy="22.5" length="6" width="19.5" /> 
+   <rule subfilecode="UNBN055" pageno="2" posx="1" posy="24" length="4" width="20" /> 
+   <rule subfilecode="UNBN056" pageno="3" posx="0.5" posy="22.5" length="6" width="20" /> 
+   <rule subfilecode="UNBN057" pageno="3" posx="0.5" posy="22.5" length="5" width="20" /> 
+   <rule subfilecode="UNBN059" pageno="1" posx="8" posy="5.5" length="4.5" width="12.5" /> 
+   <rule subfilecode="UNBN065" pageno="1" posx="1" posy="13" length="8" width="19.5" /> 
+   <rule subfilecode="UNBN071" pageno="1" posx="1" posy="15.5" length="11" width="20" /> 
+   <rule subfilecode="UNBN072" pageno="1" posx="0.2" posy="14" length="10" width="20.5" /> 
+   <rule subfilecode="POSB011" pageno="1" posx="1" posy="20" length="9.5" width="19.8" /> 
+   <rule subfilecode="POSB030" pageno="1" posx="0.5" posy="22" length="6.5" width="20" /> 
+   <rule subfilecode="POSB080" pageno="1" posx="1" posy="18" length="10.5" width="19.8" /> 
+   <rule subfilecode="UNBN050" pageno="1" posx="9" posy="4.5" length="6" width="12" /> 
+   <rule subfilecode="POSB090" pageno="1" posx="0.5" posy="14" length="9.5" width="20.3" /> 
+   <rule subfilecode="POSB081" pageno="1" posx="0.5" posy="21" length="8" width="20.3" /> 
+   <rule subfilecode="POSB029" pageno="1" posx="0.5" posy="21" length="6.5" width="20.3" /> 
+  </signaturerule> 
+  <billcards> 
+   <billcard maincard="UNB" cardid="11001" cardcode="UNBA001" carddesc="傳統型保險要保書" maxpage="6" /> 
+   <billcard maincard="UNB" cardid="11002" cardcode="UNBA002" carddesc="傳統型保險簡易要保書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11003" cardcode="UNBA003" carddesc="傳統型保險要保書(銀行通路適用)" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11004" cardcode="UNBA004" carddesc="非投資型外幣保單要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11005" cardcode="UNBA005" carddesc="非投資型外幣保單要保書(銀行通路適用)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11006" cardcode="UNBA006" carddesc="犀利101人民幣變額年金保險要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11007" cardcode="UNBA007" carddesc="樂活人生變額萬能壽險要保書" maxpage="5" /> 
+   <billcard maincard="UNB" cardid="11008" cardcode="UNBA008" carddesc="樂活久久變額年金保險要保書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11009" cardcode="UNBA009" carddesc="富足一生利率變動型即期年金保險要保書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="11010" cardcode="UNBA010" carddesc="傷害保險要保書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11011" cardcode="UNBA011" carddesc="個人微型傷害保險要保書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11012" cardcode="UNBA012" carddesc="集體投保型微型傷害保險要保書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11013" cardcode="UNBA013" carddesc="躉繳即期年金保險要保書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="11014" cardcode="UNBA014" carddesc="外幣躉繳即期年金保險要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11015" cardcode="UNBA015" carddesc="傳統型保險要保書(S版)" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11016" cardcode="UNBA016" carddesc="非投資型外幣保單要保書(O版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11017" cardcode="UNBA017" carddesc="傳統型壽險簡易要保書(銀行通路適用O版)" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11018" cardcode="UNBA018" carddesc="非投資型外幣保單要保書(M1版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11019" cardcode="UNBA019" carddesc="傳統型保險要保書(T版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11020" cardcode="UNBA020" carddesc="非投資型外幣保單要保書(T版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11021" cardcode="UNBA021" carddesc="要保書(OIU)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11022" cardcode="UNBA022" carddesc="OIU要保書(O版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11023" cardcode="UNBA023" carddesc="傷害保險要保書(網路投保專用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="11024" cardcode="UNBA024" carddesc="利率變動型年金保險要保書(網路投保專用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="11025" cardcode="UNBA025" carddesc="傳統型保險要保書 (行動投保適用)" maxpage="5" /> 
+   <billcard maincard="UNB" cardid="11026" cardcode="UNBA026" carddesc="富足一生利率變動型即期年金保險要保書 (行動投保適用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="11027" cardcode="UNBA027" carddesc="犀利101人民幣變額年金保險要保書 (行動投保適用)" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11028" cardcode="UNBA028" carddesc="非投資型外幣保單要保書 (行動投保適用)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11029" cardcode="UNBA029" carddesc="傷害保險要保書 (行動投保適用)" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11030" cardcode="UNBA030" carddesc="樂活人生變額萬能壽險要保書 (行動投保適用)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11031" cardcode="UNBA031" carddesc="樂活久久變額年金保險要保書 (行動投保適用)" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11032" cardcode="UNBA032" carddesc="傳統型壽險簡易要保書(M2版)" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11033" cardcode="UNBA033" carddesc="非投資型外幣保單要保書(M3版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11034" cardcode="UNBA034" carddesc="金利充沛利率變動型增額終身壽險要保書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11035" cardcode="UNBA035" carddesc="傳統型壽險簡易要保書(O1版)" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11036" cardcode="UNBA036" carddesc="利率變動型還本終身保險要保書" maxpage="7" /> 
+   <billcard maincard="UNB" cardid="11037" cardcode="UNBA037" carddesc="安心無憂終身壽險(實物給付型)要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11038" cardcode="UNBA039" carddesc="非投資型外幣保單要保書(銀行通路適用M4版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11039" cardcode="UNBA038" carddesc="加倍安鑫利率變動型還本終身保險" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11040" cardcode="UNBA040" carddesc="傳統型保險要保書" maxpage="7" /> 
+   <billcard maincard="UNB" cardid="11041" cardcode="UNBA041" carddesc="傳統型保險簡易要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11042" cardcode="UNBA042" carddesc="非投資型外幣保單要保書" maxpage="5" /> 
+   <billcard maincard="UNB" cardid="11043" cardcode="UNBA043" carddesc="富足一生利率變動型即期年金保險要保書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11044" cardcode="UNBA044" carddesc="樂活久久變額年金保險要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11045" cardcode="UNBA045" carddesc="金享富足外幣變額年金保險要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11046" cardcode="UNBA046" carddesc="金享富足外幣變額萬能壽險要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11047" cardcode="UNBA047" carddesc="非投資型外幣保單要保書(M5版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11048" cardcode="UNBA048" carddesc="金愛加外幣變額年金保險要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11049" cardcode="UNBA049" carddesc="非投資型外幣保單要保書(FCB)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11050" cardcode="UNBA050" carddesc="傳統型壽險簡易要保書(QFP)" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11051" cardcode="UNBA051" carddesc="卓越人生變額萬能壽險要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11052" cardcode="UNBA052" carddesc="三護三利還本終身保險要保書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11053" cardcode="UNBA053" carddesc="非投資型外幣保單要保書(C版)" maxpage="5" /> 
+   <billcard maincard="UNB" cardid="11054" cardcode="UNBA054" carddesc="安心無憂終身壽險(實物給付型)要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11055" cardcode="UNBA055" carddesc="新三六贏家變額萬能壽險要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11056" cardcode="UNBA056" carddesc="三六贏家外幣變額萬能壽險要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11057" cardcode="UNBA057" carddesc="鑫富贏家變額年金保險要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11058" cardcode="UNBA058" carddesc="鑫富贏家外幣變額年金保險要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11059" cardcode="UNBA059" carddesc="鑫富贏家變額萬能壽險要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11060" cardcode="UNBA060" carddesc="鑫富贏家外幣變額萬能壽險要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11061" cardcode="UNBA061" carddesc="傳統型保險要保書(B版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11062" cardcode="UNBA062" carddesc="傳統型保險簡易要保書(B版)" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11063" cardcode="UNBA063" carddesc="非投資型外幣保單要保書(B版)" maxpage="5" /> 
+   <billcard maincard="UNB" cardid="11064" cardcode="UNBA064" carddesc="傳統型保險要保書(B1版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11065" cardcode="UNBA065" carddesc="享樂贏家變額萬能壽險要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11066" cardcode="UNBA066" carddesc="鑫旺世代變額萬能壽險要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11067" cardcode="UNBA067" carddesc="享樂贏家變額年金保險要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11068" cardcode="UNBA068" carddesc="鑫旺世代變額年金保險要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11069" cardcode="UNBA069" carddesc="Pay長利high變額萬能壽險要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11070" cardcode="UNBA070" carddesc="新三六贏家變額萬能壽險要保書(A版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11071" cardcode="UNBA071" carddesc="E利發變額年金保險要保書(網路投保專用)" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11072" cardcode="UNBA072" carddesc="企開得勝利率變動型美元終身壽險（定額給付型）要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11073" cardcode="UNBA073" carddesc="非投資型外幣保單要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11074" cardcode="UNBA074" carddesc="非投資型外幣保單要保書(B版)" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11075" cardcode="UNBA075" carddesc="外幣躉繳即期年金保險要保書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="11076" cardcode="UNBA076" carddesc="傳統型保險要保書(網路投保專用)" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11077" cardcode="UNBA077" carddesc="活力樂退外幣變額萬能壽險要保書" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11078" cardcode="UNBA078" carddesc="活力樂退外幣變額年金保險要保書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11079" cardcode="UNBA079" carddesc="傷害保險要保書(R版)" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11993" cardcode="UNBA993" carddesc="要保書1" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="11994" cardcode="UNBA994" carddesc="要保書2" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="11995" cardcode="UNBA995" carddesc="要保書3" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="11996" cardcode="UNBA996" carddesc="要保書4" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="11997" cardcode="UNBA997" carddesc="要保書5" maxpage="5" /> 
+   <billcard maincard="UNB" cardid="11998" cardcode="UNBA998" carddesc="要保書6" maxpage="6" /> 
+   <billcard maincard="UNB" cardid="11999" cardcode="UNBA999" carddesc="要保書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="12001" cardcode="UNBB001" carddesc="客戶投保權益確認與FATCA及CRS身分聲明書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12002" cardcode="UNBB002" carddesc="客戶投保權益確認書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12003" cardcode="UNBB003" carddesc="全球人壽債權債務範圍內受益人指定及其處分權批註條款" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12004" cardcode="UNBB004" carddesc="全球人壽利率變動型年金保險定期提領批註條款申請書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12005" cardcode="UNBB005" carddesc="商品特性摘要說明" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12006" cardcode="UNBB006" carddesc="利率變動型年金保險投保聲明書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12007" cardcode="UNBB007" carddesc="全球人壽益保微型傷害保險重要約定事項摘要書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="12008" cardcode="UNBB008" carddesc="全球人壽個人微型傷害保險重要約定事項摘要書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="12009" cardcode="UNBB009" carddesc="投資型風險屬性評估表" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12010" cardcode="UNBB010" carddesc="全球人壽首次投資配置日批註條款申請書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12011" cardcode="UNBB011" carddesc="全球人壽即期年金保險商品投保聲明書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12012" cardcode="UNBB012" carddesc="結匯授權書 " maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12014" cardcode="UNBB014" carddesc="傳統型個人人壽保險契約審閱期間聲明書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12015" cardcode="UNBB015" carddesc="貨幣帳戶投資標的轉換批註條款申請書(分期定額投資)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12016" cardcode="UNBB016" carddesc="結構型債券投資報酬與風險告知書" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="12017" cardcode="UNBB017" carddesc="信託約定書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12018" cardcode="UNBB018" carddesc="新契約承保前內容變更申請書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12019" cardcode="UNBB019" carddesc="除外責任批註書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="12020" cardcode="UNBB020" carddesc="要保書補充聲明事項" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="12021" cardcode="UNBB021" carddesc="新契約內容變更同意書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="12022" cardcode="UNBB022" carddesc="當次懷孕除外同意書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12023" cardcode="UNBB023" carddesc="疾病問卷" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="12024" cardcode="UNBB024" carddesc="女性終身保險補充問卷" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12025" cardcode="UNBB025" carddesc="個人壽險集體投保彙繳申請書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12026" cardcode="UNBB026" carddesc="投資型權益說明確認書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12027" cardcode="UNBB027" carddesc="壽險業履行個人資料保護法告知義務內容" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12028" cardcode="UNBB028" carddesc="投保人須知" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12029" cardcode="UNBB029" carddesc="以外幣收付之非投資型人身保險客戶適合度調查評估表" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12030" cardcode="UNBB030" carddesc="病歷、醫療及健康檢查等個人資料蒐集、處理及利用同意書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12031" cardcode="UNBB031" carddesc="病歷、醫療及健康檢查等個人資料蒐集、處理及利用同意書(網路投保專用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12032" cardcode="UNBB032" carddesc="傳統型個人人壽保險契約審閱期間聲明書(行動投保適用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12033" cardcode="UNBB033" carddesc="行動投保聲明暨同意書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12034" cardcode="UNBB034" carddesc="實物給付型保險商品客戶適合度調查評估表（生命禮葬服務）" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12035" cardcode="UNBB035" carddesc="受監護宣告確認書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12036" cardcode="UNBB036" carddesc="新契約承保前內容變更申請書(行動投保專用版)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12037" cardcode="UNBB037" carddesc="客戶投保權益確認與FATCA及CRS身分聲明書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12038" cardcode="UNBB038" carddesc="投資型建議書／試算表" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="12039" cardcode="UNBB039" carddesc="投資型保險收益分配方式批註條款申請書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12040" cardcode="UNBB040" carddesc="投資型保險定期買回暨投資標的運用期屆滿處理方式約定書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12041" cardcode="UNBB041" carddesc="投資型保險自動提領批註條款申請書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12042" cardcode="UNBB042" carddesc="保費資金來源投保權益確認書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12043" cardcode="UNBB043" carddesc="全民健康保險重大傷病範圍給付商品重要事項告知" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12044" cardcode="UNBB044" carddesc="投資標的連結以非投資等級債券為訴求之基金風險預告書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12046" cardcode="UNBB046" carddesc="結匯授權書(網路投保專用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12047" cardcode="UNBB047" carddesc="投資型風險屬性評估表(網路投保專用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12048" cardcode="UNBB048" carddesc="投資型權益說明確認書(網路投保專用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12049" cardcode="UNBB049" carddesc="新契約投保採親晤親簽暫行措施同意聲明書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12050" cardcode="UNBB050" carddesc="以美元收付之非投資型人身保險匯率風險說明書" maxpage="6" /> 
+   <billcard maincard="UNB" cardid="12051" cardcode="UNBB051" carddesc="以人民幣收付之非投資型人身保險匯率風險說明書" maxpage="6" /> 
+   <billcard maincard="UNB" cardid="12052" cardcode="UNBB052" carddesc="以美元收付之非投資型年金保險匯率風險說明書" maxpage="6" /> 
+   <billcard maincard="UNB" cardid="12053" cardcode="UNBB053" carddesc="以人民幣收付之非投資型年金保險匯率風險說明書" maxpage="6" /> 
+   <billcard maincard="UNB" cardid="12054" cardcode="UNBB054" carddesc="遠距行動投保聲明暨生物特徵識別資料蒐集確認同意書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12056" cardcode="UNBB056" carddesc="投資型權益說明確認書（二頁）" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="12057" cardcode="UNBB057" carddesc="傳統型個人人壽保險契約審閱期間聲明書(網路投保專用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12058" cardcode="UNBB058" carddesc="遠距投保聲明及同意書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12059" cardcode="UNBB059" carddesc="遠距－個人資料蒐集處理利用同意書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12060" cardcode="UNBB060" carddesc="個人健康險及傷害險之費率可能調整告知書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12061" cardcode="UNBB061" carddesc="個人健康險及傷害險之費率可能調整告知書(行動投保專用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12062" cardcode="UNBB062" carddesc="個人健康險及傷害險之費率可能調整告知書(網路投保專用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="12063" cardcode="UNBB063" carddesc="投資型建議書／試算表(網路投保專用)" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="12064" cardcode="UNBB064" carddesc="投資型風險屬性評估表（金融友善版）" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="12066" cardcode="UNBB066" carddesc="投資型權益說明確認書（三頁）" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="12098" cardcode="UNBB998" carddesc="記名式附約子女投保名冊" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="12099" cardcode="UNBB999" carddesc="製單各式約定書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13001" cardcode="UNBN001" carddesc="保單簽收暨保戶權益確認書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13002" cardcode="UNBN002" carddesc="美國海外帳戶FATCA身分聲明書【新契約要保人為法人時適用】" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13003" cardcode="UNBN003" carddesc="FATCA法人控制人個人資料告知聲明書及同意書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13004" cardcode="UNBN004" carddesc="美國海外帳戶FATCA身分聲明書、個人資料告知暨同意書【新契約要保人為個人時適用】" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13005" cardcode="UNBN005" carddesc="保單代收授權書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13006" cardcode="UNBN006" carddesc="保險費付款授權書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13007" cardcode="UNBN007" carddesc="W－8BEN" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13008" cardcode="UNBN008" carddesc="W－9" maxpage="4" /> 
+   <billcard maincard="UNB" cardid="13009" cardcode="UNBN009" carddesc="W－8BEN－E" maxpage="8" /> 
+   <billcard maincard="UNB" cardid="13010" cardcode="UNBN010" carddesc="投資型商品首期保險費轉帳扣款約定書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13011" cardcode="UNBN011" carddesc="要保書填寫說明" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13012" cardcode="UNBN012" carddesc="新契約取消申請書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13013" cardcode="UNBN013" carddesc="被保險人建康告知事項補充說明" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13014" cardcode="UNBN014" carddesc="財務狀況告知書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13015" cardcode="UNBN015" carddesc="調閱病歷同意書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13016" cardcode="UNBN016" carddesc="體檢申請書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13017" cardcode="UNBN017" carddesc="體檢報告書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13018" cardcode="UNBN018" carddesc="新契約相關證明文件" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13019" cardcode="UNBN019" carddesc="其他文件" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13020" cardcode="UNBN020" carddesc="保險業務員核保報告書－一般版" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13021" cardcode="UNBN021" carddesc="保險業務員核保報告書－BD版" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13022" cardcode="UNBN022" carddesc="保險業務員核保報告書－微型版" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13023" cardcode="UNBN023" carddesc="掛號回執聯－雙掛寄保單" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13025" cardcode="UNBN025" carddesc="掛號回執聯－保單送達重要權益通知函" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13026" cardcode="UNBN026" carddesc="掛號回執聯－其他" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13027" cardcode="UNBN027" carddesc="展延簽收單應繳回日申請書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13028" cardcode="UNBN028" carddesc="支票變更申請書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13029" cardcode="UNBN029" carddesc="洽再保結果／再保申保書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13030" cardcode="UNBN030" carddesc="病歷資料" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13031" cardcode="UNBN031" carddesc="體檢資料" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13032" cardcode="UNBN032" carddesc="集彙文件" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13033" cardcode="UNBN033" carddesc="附加費用聲明書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13034" cardcode="UNBN034" carddesc="核保照會通知單" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13035" cardcode="UNBN035" carddesc="補繳保費通知單" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13036" cardcode="UNBN036" carddesc="保險費溢繳通知書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13037" cardcode="UNBN037" carddesc="未承保通知書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13038" cardcode="UNBN038" carddesc="承保後照會單" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13039" cardcode="UNBN039" carddesc="電訪單" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13040" cardcode="UNBN040" carddesc="新契約審查表" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13041" cardcode="UNBN041" carddesc="保險費試算表" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13042" cardcode="UNBN042" carddesc="送件記錄單" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13043" cardcode="UNBN043" carddesc="客戶投保權益確認與FATCA身分聲明書、個人資料告知暨同意書－附錄" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13044" cardcode="UNBN044" carddesc="公文回函" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13045" cardcode="UNBN045" carddesc="新契約承保前內容變更申請書－注意事項" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13046" cardcode="UNBN046" carddesc="查件單" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13047" cardcode="UNBN047" carddesc="保險業務員核保報告書－OIU" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13048" cardcode="UNBN048" carddesc="兒童手冊" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13049" cardcode="UNBN049" carddesc="生調電訪紀錄單" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13050" cardcode="UNBN050" carddesc="被保險人訪視表" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13051" cardcode="UNBN051" carddesc="防制洗錢及打擊資恐法人聲明書【新契約要保人或受益人為法人時適用】" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13052" cardcode="UNBN052" carddesc="W－9(六頁版)" maxpage="6" /> 
+   <billcard maincard="UNB" cardid="13053" cardcode="UNBN053" carddesc="美國海外帳戶FATCA及CRS身分聲明書【新契約要保人為個人時適用】" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13054" cardcode="UNBN054" carddesc="美國海外帳戶FATCA及CRS身分聲明書【新契約要保人為法人時適用】" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13055" cardcode="UNBN055" carddesc="自我證明表－個人" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="13056" cardcode="UNBN056" carddesc="自我證明表－實體(法人)" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="13057" cardcode="UNBN057" carddesc="自我證明表－具控制權之人" maxpage="3" /> 
+   <billcard maincard="UNB" cardid="13058" cardcode="UNBN058" carddesc="客戶投保權益確認與FATCA及CRS身分聲明書－附錄" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13059" cardcode="UNBN059" carddesc="電子化轉帳付款約定書" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13060" cardcode="UNBN060" carddesc="保單簽收單影本申請書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13061" cardcode="UNBN061" carddesc="防制洗錢及打擊資恐法人聲明書【新契約要保人或受益人為法人時適用】－附錄" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13062" cardcode="UNBN062" carddesc="新契約語音報備回傳單" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13063" cardcode="UNBN063" carddesc="新契約相關證明文件（歸檔供參）" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13064" cardcode="UNBN064" carddesc="證件類相關文件" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13065" cardcode="UNBN065" carddesc="被保險人未滿15足歲投保聲明書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13066" cardcode="UNBN066" carddesc="體檢病歷資料審核單" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13067" cardcode="UNBN067" carddesc="借調正本／歸還紀錄單" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13068" cardcode="UNBN068" carddesc="視訊投保文件－補回" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13069" cardcode="UNBN069" carddesc="非親晤受理電訪單" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13070" cardcode="UNBN070" carddesc="遠距投保－錄音錄影審查作業項目" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13071" cardcode="UNBN071" carddesc="保費資金來源投保權益確認書(要保人為法人時適用)" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13072" cardcode="UNBN072" carddesc="投保無喪葬費用保險金保險商品確認聲明書" maxpage="1" /> 
+   <billcard maincard="UNB" cardid="13073" cardcode="UNBN073" carddesc="高齡客戶投保評估量表暨業務員報告書" maxpage="2" /> 
+   <billcard maincard="UNB" cardid="13074" cardcode="UNBN074" carddesc="高齡銷售過程錄音問卷" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13076" cardcode="UNBN076" carddesc="高齡銷售過程錄音問卷＿繳款人" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13996" cardcode="UNBN996" carddesc="送金單" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13997" cardcode="UNBN997" carddesc="文件內容塗表" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13998" cardcode="UNBN998" carddesc="初核表" maxpage="0" /> 
+   <billcard maincard="UNB" cardid="13999" cardcode="UNBN999" carddesc="傳真" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30002" cardcode="CLMN002" carddesc="診斷證明書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30003" cardcode="CLMN003" carddesc="收據" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30004" cardcode="CLMN004" carddesc="調閱病歷同意書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30005" cardcode="CLMN005" carddesc="附件" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30006" cardcode="CLMN006" carddesc="理賠申請書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30007" cardcode="CLMN007" carddesc="防制洗錢及打擊資恐法人聲明書【要保人或受益人為法人時適用】" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30008" cardcode="CLMN102" carddesc="線上申請-診斷證明書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30009" cardcode="CLMN103" carddesc="線上申請-收據" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30010" cardcode="CLMN110" carddesc="線上申請-轉送暨個資蒐集同意書/醫療單據調閱授權同意書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30011" cardcode="CLMN011" carddesc="醫院傳送之診斷證明書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30012" cardcode="CLMN012" carddesc="醫院傳送之收據" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30013" cardcode="CLMN104" carddesc="線上申請-調閱病歷同意書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30014" cardcode="CLMN105" carddesc="線上申請-附件" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30015" cardcode="CLMN106" carddesc="線上申請-理賠申請書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30016" cardcode="CLMN107" carddesc="線上申請-保險單" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30017" cardcode="CLMN010" carddesc="轉送暨個資蒐集同意書/醫療單據調閱授權同意書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30018" cardcode="CLMN013" carddesc="美國海外帳戶FATCA及CRS身分聲明書、個人資料告知暨同意書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30019" cardcode="CLMN014" carddesc="受益人身分證明" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30020" cardcode="CLMN015" carddesc="被保險人除戶戶籍謄本" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30021" cardcode="CLMN016" carddesc="相驗屍體證明書或死亡診斷書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30022" cardcode="CLMN017" carddesc="病理、檢驗或專業評量表/病歷" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30023" cardcode="CLMN018" carddesc="X光片" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30024" cardcode="CLMN019" carddesc="理賠批註書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30025" cardcode="CLMN020" carddesc="理賠和解書(同意書)/撤回申訴申請書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30026" cardcode="CLMN021" carddesc="行動理賠聲明暨同意書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30027" cardcode="CLMN113" carddesc="線上申請-FATCA及CRS聲明書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30028" cardcode="CLMN114" carddesc="線上申請-受益人身分證明" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30029" cardcode="CLMN115" carddesc="線上申請-除戶戶籍謄本" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30030" cardcode="CLMN116" carddesc="線上申請-相驗屍體證明書或死亡診斷書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30031" cardcode="CLMN117" carddesc="線上申請-病理、檢驗或專業評量表/病歷" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30032" cardcode="CLMN118" carddesc="線上申請-X光片" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30033" cardcode="CLMN121" carddesc="線上申請-行動理賠聲明暨同意書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30034" cardcode="CLMN022" carddesc="醫院傳送之出院病摘" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30035" cardcode="CLMN023" carddesc="醫院傳送之醫學影像" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30036" cardcode="CLMN024" carddesc="醫院傳送之病理檢查" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30037" cardcode="CLMN025" carddesc="醫院傳送之手術資料" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30038" cardcode="CLMN026" carddesc="醫院傳送之住院資料" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30039" cardcode="CLMN027" carddesc="醫院傳送之急診資料" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30040" cardcode="CLMN028" carddesc="醫院傳送之門診資料" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30041" cardcode="CLMN029" carddesc="醫院傳送-其他" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30042" cardcode="CLMN123" carddesc="線上申請-醫學影像" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30043" cardcode="CLMN125" carddesc="線上申請-手術資料" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30044" cardcode="CLMN126" carddesc="線上申請-門診資料" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30045" cardcode="CLMN127" carddesc="線上申請-急診資料" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30046" cardcode="CLMN128" carddesc="線上申請-住院資料" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30047" cardcode="CLMN030" carddesc="身心障礙證明" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30048" cardcode="CLMN031" carddesc="實物給付完成確認書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30049" cardcode="CLMN130" carddesc="線上申請-身心障礙證明" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30050" cardcode="CLMN131" carddesc="線上申請-實物給付完成確認書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="30051" cardcode="CLMN032" carddesc="身分驗證同意書" maxpage="0" /> 
+   <billcard maincard="CLM" cardid="31001" cardcode="CLMN001" carddesc="壽險審核三聯單" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41001" cardcode="GIDA001" carddesc="團險要保書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41002" cardcode="GIDA002" carddesc="業務人員報告書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41003" cardcode="GIDA003" carddesc="續保約定書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41004" cardcode="GIDA004" carddesc="其他約定書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41005" cardcode="GIDA005" carddesc="投保人名冊" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41006" cardcode="GIDA006" carddesc="計劃書底稿" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41007" cardcode="GIDA007" carddesc="承保明細表" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41008" cardcode="GIDA008" carddesc="會辦單" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41009" cardcode="GIDA009" carddesc="保費切結書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41010" cardcode="GIDA010" carddesc="其他" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41011" cardcode="GIDA011" carddesc="加保通知書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41012" cardcode="GIDA012" carddesc="退保通知書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41013" cardcode="GIDA013" carddesc="契變通知書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41014" cardcode="GIDA014" carddesc="通知函" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41015" cardcode="GIDA015" carddesc="網路服務申請書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41016" cardcode="GIDA016" carddesc="公司版個資同意書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41017" cardcode="GIDA017" carddesc="身心障礙手冊" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41018" cardcode="GIDA018" carddesc="工商登記" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41019" cardcode="GIDA019" carddesc="報備文件" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41020" cardcode="GIDA020" carddesc="要保單位行文" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41021" cardcode="GIDA021" carddesc="索引報表" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41022" cardcode="GIDA022" carddesc="超齡名單" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41023" cardcode="GIDA023" carddesc="勞保繳款單" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41024" cardcode="GIDA024" carddesc="退費聲明書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41025" cardcode="GIDA025" carddesc="要保單位權益確認書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41026" cardcode="GIDA026" carddesc="團險保戶風險評估契審表" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41027" cardcode="GIDA027" carddesc="經手人變更書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41028" cardcode="GIDA028" carddesc="費率檢核表" maxpage="0" /> 
+   <billcard maincard="GID" cardid="41029" cardcode="GIDA029" carddesc="續保研議表" maxpage="0" /> 
+   <billcard maincard="GID" cardid="42001" cardcode="GIDB001" carddesc="個人版個資同意書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="42002" cardcode="GIDB002" carddesc="受益人指定卡" maxpage="0" /> 
+   <billcard maincard="GID" cardid="42003" cardcode="GIDB003" carddesc="健康告知聲明書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="42004" cardcode="GIDB004" carddesc="參加調查表" maxpage="0" /> 
+   <billcard maincard="GID" cardid="42005" cardcode="GIDB005" carddesc="個人病歷個資同意書" maxpage="0" /> 
+   <billcard maincard="GID" cardid="42006" cardcode="GIDB006" carddesc="體檢表" maxpage="0" /> 
+   <billcard maincard="GID" cardid="42007" cardcode="GIDB007" carddesc="個人行文" maxpage="0" /> 
+   <billcard maincard="GID" cardid="42008" cardcode="GIDB008" carddesc="個人通報查核表" maxpage="0" /> 
+   <billcard maincard="POS" cardid="21005" cardcode="POSB005" carddesc="契約變更申請批註單" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21011" cardcode="POSB010" carddesc="保險契約內容變更申請書【多頁】" maxpage="0" /> 
+   <billcard maincard="POS" cardid="21014" cardcode="POSB011" carddesc="保險契約內容變更申請書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21026" cardcode="POSB020" carddesc="簽章變更申請書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21038" cardcode="POSB026" carddesc="保險契約個人資料異動申請書" maxpage="0" /> 
+   <billcard maincard="POS" cardid="21041" cardcode="POSB029" carddesc="電子化通知服務暨個人資料異動申請書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21032" cardcode="POSB030" carddesc="健康告知書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21033" cardcode="POSB040" carddesc="疾病問卷" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21034" cardcode="POSB050" carddesc="批註書 " maxpage="1" /> 
+   <billcard maincard="POS" cardid="21035" cardcode="POSB080" carddesc="重要事項告知" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21040" cardcode="POSB081" carddesc="費率可能調整告知書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21036" cardcode="POSB090" carddesc="結匯授權書 " maxpage="1" /> 
+   <billcard maincard="POS" cardid="21001" cardcode="POSN001" carddesc="各式申請書【多頁】" maxpage="2" /> 
+   <billcard maincard="POS" cardid="21004" cardcode="POSN004" carddesc="各式申請書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21006" cardcode="POSN005" carddesc="保險單借款約定書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21007" cardcode="POSN006" carddesc="保險契約終止撤銷申請書 " maxpage="1" /> 
+   <billcard maincard="POS" cardid="21008" cardcode="POSN007" carddesc="電子商務網路服務約定書" maxpage="3" /> 
+   <billcard maincard="POS" cardid="21013" cardcode="POSN011" carddesc="匯款約定書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21016" cardcode="POSN012" carddesc="審查表 " maxpage="0" /> 
+   <billcard maincard="POS" cardid="21018" cardcode="POSN013" carddesc="給付通知書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21020" cardcode="POSN014" carddesc="聲明書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21021" cardcode="POSN015" carddesc="委託書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21022" cardcode="POSN016" carddesc="其他附件" maxpage="0" /> 
+   <billcard maincard="POS" cardid="21023" cardcode="POSN017" carddesc="試算表" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21025" cardcode="POSN019" carddesc="照會單" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21027" cardcode="POSN020" carddesc="保全作業退件 " maxpage="0" /> 
+   <billcard maincard="POS" cardid="21028" cardcode="POSN021" carddesc="病歷" maxpage="0" /> 
+   <billcard maincard="POS" cardid="21029" cardcode="POSN022" carddesc="業務員報告書" maxpage="1" /> 
+   <billcard maincard="POS" cardid="21030" cardcode="POSN023" carddesc="可疑交易查核表" maxpage="0" /> 
+   <billcard maincard="POS" cardid="21031" cardcode="POSN024" carddesc="可疑交易報告" maxpage="0" /> 
+   <billcard maincard="POS" cardid="21037" cardcode="POSN025" carddesc="FATCA＆CRS相關文件" maxpage="0" /> 
+   <billcard maincard="POS" cardid="21039" cardcode="POSN027" carddesc="定審文件" maxpage="0" /> 
+   <billcard maincard="POS" cardid="21999" cardcode="POSZ999" carddesc="分檔" maxpage="1" /> 
+  </billcards> 
+ </uiconfig> 
+ <formconfig> 
+  <editors defaultheight="22" defaultwidth="85" labelwidth="65" labelheight="30" labelpadding="4" paddingheight="8" paddingwidth="3" font="Arial" fontsize="9" columns="4"> 
+   <editor name="OrgName" type="textEditor" caption="組織編碼" columnnum="2" value="101-台北總公司"> 
+    <scripts> 
+    </scripts> 
+   </editor> 
+   <editor name="DeptName" type="textEditor" caption="部室名稱" columnnum="2" value="契約行政科"> 
+    <scripts> 
+    </scripts> 
+   </editor> 
+   <editor name="MainFileType" type="comboBox" caption="影像主類型" columnnum="1"> 
+    <scripts></scripts> 
+   </editor> 
+   <editor name="FileType" type="comboBox" caption="影像子類型" columnnum="3" value=""> 
+    <scripts> 
+    </scripts> 
+   </editor> 
+   <editor name="FileCode" type="textEditor" caption="文件編號" columnnum="2"> 
+    <scripts> 
+    </scripts> 
+   </editor> 
+   <editor name="FilePage" type="textEditor" caption="頁碼" columnnum="2"> 
+    <scripts> 
+    </scripts> 
+   </editor> 
+   <editor name="BoxNo" type="comboBox" caption="箱號" columnnum="4"> 
+    <scripts> 
+    </scripts> 
+   </editor> 
+   <editor name="BatchDepType" type="comboBox" caption="批次號碼-部門別" columnnum="1" value=""> 
+    <scripts /> 
+   </editor> 
+   <editor name="BatchDate" type="textEditor" displabel="false" caption="日期" width="70" columnnum="1" value=""> 
+    <scripts> 
+     <onblur>
+       var value = BatchDate.value; if(value.length &lt; 7) { var lenDiff = 7 - value.length; for(var cnt=0;cnt &lt; lenDiff; cnt++) { BatchDate.value = "0"+BatchDate.value; } } else if(value.length &gt; 7) { BatchDate.value = BatchDate.value.substr(0,7); } 
+     </onblur> 
+    </scripts> 
+   </editor> 
+   <editor name="BatchArea" type="textEditor" displabel="false" caption="分區" columnnum="1"> 
+    <scripts> 
+     <onblur>
+       var value = BatchArea.value; if(value.length &gt; 0){ if(value.length == 1) BatchArea.value = "0"+value; else if(value.length &gt; 2) BatchArea.value = BatchArea.value.substr(0,2); } 
+     </onblur> 
+    </scripts> 
+   </editor> 
+   <editor name="BatchDocType" type="textEditor" displabel="false" caption="文件別" columnnum="1"> 
+    <scripts> 
+     <onblur>
+       var value = BatchDocType.value; if(value.length &gt; 0){ if(value.length == 1) BatchDocType.value = "0"+value; else if(value.length &gt; 2) BatchDocType.value = BatchDocType.value.substr(0,2); } 
+     </onblur> 
+    </scripts> 
+   </editor> 
+   <editor name="CompanyCode" type="textEditor" caption="公司碼(團險保單號碼)" columnnum="2"> 
+    <scripts> 
+     <onblur>
+       FileCode.value = CompanyCode.value; 
+     </onblur> 
+    </scripts> 
+   </editor> 
+   <editor name="PersonalCode" type="textEditor" caption="個人碼" columnnum="2"> 
+    <scripts> 
+     <onblur>
+       var value = PersonalCode.value; if(value.length &gt; 0){ if(value.length &lt; 6) { var lenDiff = 6 - value.length; for(var cnt=0;cnt &lt; lenDiff; cnt++) { PersonalCode.value = "0"+PersonalCode.value; } } else if(value.length &gt; 6) { PersonalCode.value = PersonalCode.value.substr(0,6); } } 
+     </onblur> 
+    </scripts> 
+   </editor> 
+   <editor name="ActionReplace" type="comboBox" caption="替換" columnnum="1" value="N"> 
+    <scripts> 
+    </scripts> 
+   </editor> 
+   <editor name="ActionInsert" type="comboBox" caption="插入" columnnum="1" value="N"> 
+    <scripts> 
+    </scripts> 
+   </editor> 
+   <editor name="Remark" type="textEditor" caption="影像備註" columnnum="4"> 
+    <scripts> 
+    </scripts> 
+   </editor> 
+   <editor name="orgCode" type="hidden" value="101" columnnum="1" /> 
+   <editor name="empId" type="hidden" value="100423" columnnum="1" /> 
+   <editor name="deptId" type="hidden" value="2266" columnnum="1" /> 
+   <editor name="actionType" type="hidden" columnnum="1" /> 
+   <editor name="step" type="hidden" columnnum="1" /> 
+   <editor name="imageSaveDir" type="hidden" value="D:\ImageArchive" columnnum="1" /> 
+   <editor name="recordStatus" type="hidden" columnnum="1" /> 
+   <editor name="ImageFormat" type="hidden" columnnum="1" /> 
+   <editor name="RocDate" type="hidden" value="1120210" columnnum="1" /> 
+   <editor name="updateRole" type="hidden" value="Y" columnnum="1" /> 
+   <editor name="fromQueryPage" type="hidden" value="false" columnnum="1" /> 
+   <editor name="isGID" type="hidden" value="null" columnnum="1" /> 
+   <editor name="bizDept" type="hidden" value="NB" columnnum="1" /> 
+   <editor name="batchDepTypeValue" type="hidden" value="NB" columnnum="1" /> 
+  </editors> 
+  <scripts> 
+   <script><![CDATA[	
+				function getFileTypeName(fileType){	
+					var fileTypeNames="UNB-新契約&N#3-99.POS-POS&N#3-99.CLM-理賠&N#3-99.GID-團險&N#3-99.170-Pending Task Form&N#10-99.777-Customer Service Application Form&N#10-99.902-Claim Application From&N#10-99.UNBA001-傳統型保險要保書&N#7-6.UNBA002-傳統型保險簡易要保書&N#7-2.UNBA003-傳統型保險要保書(銀行通路適用)&N#7-3.UNBA004-非投資型外幣保單要保書&N#7-4.UNBA005-非投資型外幣保單要保書(銀行通路適用)&N#7-4.UNBA006-犀利101人民幣變額年金保險要保書&N#7-3.UNBA007-樂活人生變額萬能壽險要保書&N#7-5.UNBA008-樂活久久變額年金保險要保書&N#7-2.UNBA009-富足一生利率變動型即期年金保險要保書&N#7-1.UNBA010-傷害保險要保書&N#7-2.UNBA011-個人微型傷害保險要保書&N#7-2.UNBA012-集體投保型微型傷害保險要保書&N#7-2.UNBA013-躉繳即期年金保險要保書&N#7-1.UNBA014-外幣躉繳即期年金保險要保書&N#7-3.UNBA015-傳統型保險要保書(S版)&N#7-3.UNBA016-非投資型外幣保單要保書(O版)&N#7-4.UNBA017-傳統型壽險簡易要保書(銀行通路適用O版)&N#7-2.UNBA018-非投資型外幣保單要保書(M1版)&N#7-4.UNBA019-傳統型保險要保書(T版)&N#7-4.UNBA020-非投資型外幣保單要保書(T版)&N#7-4.UNBA021-要保書(OIU)&N#7-4.UNBA022-OIU要保書(O版)&N#7-4.UNBA023-傷害保險要保書(網路投保專用)&N#7-1.UNBA024-利率變動型年金保險要保書(網路投保專用)&N#7-1.UNBA025-傳統型保險要保書 (行動投保適用)&N#7-5.UNBA026-富足一生利率變動型即期年金保險要保書 (行動投保適用)&N#7-1.UNBA027-犀利101人民幣變額年金保險要保書 (行動投保適用)&N#7-3.UNBA028-非投資型外幣保單要保書 (行動投保適用)&N#7-4.UNBA029-傷害保險要保書 (行動投保適用)&N#7-2.UNBA030-樂活人生變額萬能壽險要保書 (行動投保適用)&N#7-4.UNBA031-樂活久久變額年金保險要保書 (行動投保適用)&N#7-2.UNBA032-傳統型壽險簡易要保書(M2版)&N#7-2.UNBA033-非投資型外幣保單要保書(M3版)&N#7-4.UNBA034-金利充沛利率變動型增額終身壽險要保書&N#7-2.UNBA035-傳統型壽險簡易要保書(O1版)&N#7-2.UNBA036-利率變動型還本終身保險要保書&N#7-7.UNBA037-安心無憂終身壽險(實物給付型)要保書&N#7-4.UNBA039-非投資型外幣保單要保書(銀行通路適用M4版)&N#7-4.UNBA038-加倍安鑫利率變動型還本終身保險&N#7-2.UNBA040-傳統型保險要保書&N#7-7.UNBA041-傳統型保險簡易要保書&N#7-3.UNBA042-非投資型外幣保單要保書&N#7-5.UNBA043-富足一生利率變動型即期年金保險要保書&N#7-2.UNBA044-樂活久久變額年金保險要保書&N#7-3.UNBA045-金享富足外幣變額年金保險要保書&N#7-3.UNBA046-金享富足外幣變額萬能壽險要保書&N#7-4.UNBA047-非投資型外幣保單要保書(M5版)&N#7-4.UNBA048-金愛加外幣變額年金保險要保書&N#7-3.UNBA049-非投資型外幣保單要保書(FCB)&N#7-4.UNBA050-傳統型壽險簡易要保書(QFP)&N#7-2.UNBA051-卓越人生變額萬能壽險要保書&N#7-4.UNBA052-三護三利還本終身保險要保書&N#7-2.UNBA053-非投資型外幣保單要保書(C版)&N#7-5.UNBA054-安心無憂終身壽險(實物給付型)要保書&N#7-3.UNBA055-新三六贏家變額萬能壽險要保書&N#7-4.UNBA056-三六贏家外幣變額萬能壽險要保書&N#7-4.UNBA057-鑫富贏家變額年金保險要保書&N#7-3.UNBA058-鑫富贏家外幣變額年金保險要保書&N#7-3.UNBA059-鑫富贏家變額萬能壽險要保書&N#7-4.UNBA060-鑫富贏家外幣變額萬能壽險要保書&N#7-4.UNBA061-傳統型保險要保書(B版)&N#7-4.UNBA062-傳統型保險簡易要保書(B版)&N#7-3.UNBA063-非投資型外幣保單要保書(B版)&N#7-5.UNBA064-傳統型保險要保書(B1版)&N#7-4.UNBA065-享樂贏家變額萬能壽險要保書&N#7-4.UNBA066-鑫旺世代變額萬能壽險要保書&N#7-4.UNBA067-享樂贏家變額年金保險要保書&N#7-3.UNBA068-鑫旺世代變額年金保險要保書&N#7-3.UNBA069-Pay長利high變額萬能壽險要保書&N#7-4.UNBA070-新三六贏家變額萬能壽險要保書(A版)&N#7-4.UNBA071-E利發變額年金保險要保書(網路投保專用)&N#7-2.UNBA072-企開得勝利率變動型美元終身壽險（定額給付型）要保書&N#7-3.UNBA073-非投資型外幣保單要保書&N#7-3.UNBA074-非投資型外幣保單要保書(B版)&N#7-3.UNBA075-外幣躉繳即期年金保險要保書&N#7-1.UNBA076-傳統型保險要保書(網路投保專用)&N#7-3.UNBA077-活力樂退外幣變額萬能壽險要保書&N#7-4.UNBA078-活力樂退外幣變額年金保險要保書&N#7-3.UNBA079-傷害保險要保書(R版)&N#7-4.UNBA993-要保書1&N#7-1.UNBA994-要保書2&N#7-2.UNBA995-要保書3&N#7-3.UNBA996-要保書4&N#7-4.UNBA997-要保書5&N#7-5.UNBA998-要保書6&N#7-6.UNBA999-要保書&N#7-0.UNBB001-客戶投保權益確認與FATCA及CRS身分聲明書&N#7-1.UNBB002-客戶投保權益確認書&N#7-1.UNBB003-全球人壽債權債務範圍內受益人指定及其處分權批註條款&N#7-1.UNBB004-全球人壽利率變動型年金保險定期提領批註條款申請書&N#7-1.UNBB005-商品特性摘要說明&N#7-1.UNBB006-利率變動型年金保險投保聲明書&N#7-1.UNBB007-全球人壽益保微型傷害保險重要約定事項摘要書&N#7-2.UNBB008-全球人壽個人微型傷害保險重要約定事項摘要書&N#7-2.UNBB009-投資型風險屬性評估表&N#7-1.UNBB010-全球人壽首次投資配置日批註條款申請書&N#7-1.UNBB011-全球人壽即期年金保險商品投保聲明書&N#7-1.UNBB012-結匯授權書 &N#7-1.UNBB014-傳統型個人人壽保險契約審閱期間聲明書&N#7-1.UNBB015-貨幣帳戶投資標的轉換批註條款申請書(分期定額投資)&N#7-1.UNBB016-結構型債券投資報酬與風險告知書&N#7-3.UNBB017-信託約定書&N#7-1.UNBB018-新契約承保前內容變更申請書&N#7-1.UNBB019-除外責任批註書&N#7-0.UNBB020-要保書補充聲明事項&N#7-0.UNBB021-新契約內容變更同意書&N#7-0.UNBB022-當次懷孕除外同意書&N#7-1.UNBB023-疾病問卷&N#7-0.UNBB024-女性終身保險補充問卷&N#7-1.UNBB025-個人壽險集體投保彙繳申請書&N#7-1.UNBB026-投資型權益說明確認書&N#7-1.UNBB027-壽險業履行個人資料保護法告知義務內容&N#7-1.UNBB028-投保人須知&N#7-1.UNBB029-以外幣收付之非投資型人身保險客戶適合度調查評估表&N#7-1.UNBB030-病歷、醫療及健康檢查等個人資料蒐集、處理及利用同意書&N#7-1.UNBB031-病歷、醫療及健康檢查等個人資料蒐集、處理及利用同意書(網路投保專用)&N#7-1.UNBB032-傳統型個人人壽保險契約審閱期間聲明書(行動投保適用)&N#7-1.UNBB033-行動投保聲明暨同意書&N#7-1.UNBB034-實物給付型保險商品客戶適合度調查評估表（生命禮葬服務）&N#7-1.UNBB035-受監護宣告確認書&N#7-1.UNBB036-新契約承保前內容變更申請書(行動投保專用版)&N#7-1.UNBB037-客戶投保權益確認與FATCA及CRS身分聲明書&N#7-1.UNBB038-投資型建議書／試算表&N#7-0.UNBB039-投資型保險收益分配方式批註條款申請書&N#7-1.UNBB040-投資型保險定期買回暨投資標的運用期屆滿處理方式約定書&N#7-1.UNBB041-投資型保險自動提領批註條款申請書&N#7-1.UNBB042-保費資金來源投保權益確認書&N#7-1.UNBB043-全民健康保險重大傷病範圍給付商品重要事項告知&N#7-1.UNBB044-投資標的連結以非投資等級債券為訴求之基金風險預告書&N#7-1.UNBB046-結匯授權書(網路投保專用)&N#7-1.UNBB047-投資型風險屬性評估表(網路投保專用)&N#7-1.UNBB048-投資型權益說明確認書(網路投保專用)&N#7-1.UNBB049-新契約投保採親晤親簽暫行措施同意聲明書&N#7-1.UNBB050-以美元收付之非投資型人身保險匯率風險說明書&N#7-6.UNBB051-以人民幣收付之非投資型人身保險匯率風險說明書&N#7-6.UNBB052-以美元收付之非投資型年金保險匯率風險說明書&N#7-6.UNBB053-以人民幣收付之非投資型年金保險匯率風險說明書&N#7-6.UNBB054-遠距行動投保聲明暨生物特徵識別資料蒐集確認同意書&N#7-1.UNBB056-投資型權益說明確認書（二頁）&N#7-2.UNBB057-傳統型個人人壽保險契約審閱期間聲明書(網路投保專用)&N#7-1.UNBB058-遠距投保聲明及同意書&N#7-1.UNBB059-遠距－個人資料蒐集處理利用同意書&N#7-1.UNBB060-個人健康險及傷害險之費率可能調整告知書&N#7-1.UNBB061-個人健康險及傷害險之費率可能調整告知書(行動投保專用)&N#7-1.UNBB062-個人健康險及傷害險之費率可能調整告知書(網路投保專用)&N#7-1.UNBB063-投資型建議書／試算表(網路投保專用)&N#7-0.UNBB064-投資型風險屬性評估表（金融友善版）&N#7-2.UNBB066-投資型權益說明確認書（三頁）&N#7-3.UNBB998-記名式附約子女投保名冊&N#7-0.UNBB999-製單各式約定書&N#7-0.UNBN001-保單簽收暨保戶權益確認書&N#7-1.UNBN002-美國海外帳戶FATCA身分聲明書【新契約要保人為法人時適用】&N#7-0.UNBN003-FATCA法人控制人個人資料告知聲明書及同意書&N#7-0.UNBN004-美國海外帳戶FATCA身分聲明書、個人資料告知暨同意書【新契約要保人為個人時適用】&N#7-1.UNBN005-保單代收授權書&N#7-1.UNBN006-保險費付款授權書&N#7-0.UNBN007-W－8BEN&N#7-1.UNBN008-W－9&N#7-4.UNBN009-W－8BEN－E&N#7-8.UNBN010-投資型商品首期保險費轉帳扣款約定書&N#7-1.UNBN011-要保書填寫說明&N#7-1.UNBN012-新契約取消申請書&N#7-1.UNBN013-被保險人建康告知事項補充說明&N#7-1.UNBN014-財務狀況告知書&N#7-1.UNBN015-調閱病歷同意書&N#7-1.UNBN016-體檢申請書&N#7-0.UNBN017-體檢報告書&N#7-0.UNBN018-新契約相關證明文件&N#7-0.UNBN019-其他文件&N#7-0.UNBN020-保險業務員核保報告書－一般版&N#7-1.UNBN021-保險業務員核保報告書－BD版&N#7-1.UNBN022-保險業務員核保報告書－微型版&N#7-1.UNBN023-掛號回執聯－雙掛寄保單&N#7-0.UNBN025-掛號回執聯－保單送達重要權益通知函&N#7-0.UNBN026-掛號回執聯－其他&N#7-0.UNBN027-展延簽收單應繳回日申請書&N#7-0.UNBN028-支票變更申請書&N#7-1.UNBN029-洽再保結果／再保申保書&N#7-0.UNBN030-病歷資料&N#7-0.UNBN031-體檢資料&N#7-0.UNBN032-集彙文件&N#7-0.UNBN033-附加費用聲明書&N#7-1.UNBN034-核保照會通知單&N#7-0.UNBN035-補繳保費通知單&N#7-1.UNBN036-保險費溢繳通知書&N#7-1.UNBN037-未承保通知書&N#7-1.UNBN038-承保後照會單&N#7-0.UNBN039-電訪單&N#7-0.UNBN040-新契約審查表&N#7-0.UNBN041-保險費試算表&N#7-1.UNBN042-送件記錄單&N#7-1.UNBN043-客戶投保權益確認與FATCA身分聲明書、個人資料告知暨同意書－附錄&N#7-1.UNBN044-公文回函&N#7-0.UNBN045-新契約承保前內容變更申請書－注意事項&N#7-1.UNBN046-查件單&N#7-0.UNBN047-保險業務員核保報告書－OIU&N#7-1.UNBN048-兒童手冊&N#7-0.UNBN049-生調電訪紀錄單&N#7-0.UNBN050-被保險人訪視表&N#7-0.UNBN051-防制洗錢及打擊資恐法人聲明書【新契約要保人或受益人為法人時適用】&N#7-1.UNBN052-W－9(六頁版)&N#7-6.UNBN053-美國海外帳戶FATCA及CRS身分聲明書【新契約要保人為個人時適用】&N#7-1.UNBN054-美國海外帳戶FATCA及CRS身分聲明書【新契約要保人為法人時適用】&N#7-0.UNBN055-自我證明表－個人&N#7-2.UNBN056-自我證明表－實體(法人)&N#7-3.UNBN057-自我證明表－具控制權之人&N#7-3.UNBN058-客戶投保權益確認與FATCA及CRS身分聲明書－附錄&N#7-1.UNBN059-電子化轉帳付款約定書&N#7-0.UNBN060-保單簽收單影本申請書&N#7-1.UNBN061-防制洗錢及打擊資恐法人聲明書【新契約要保人或受益人為法人時適用】－附錄&N#7-1.UNBN062-新契約語音報備回傳單&N#7-1.UNBN063-新契約相關證明文件（歸檔供參）&N#7-1.UNBN064-證件類相關文件&N#7-0.UNBN065-被保險人未滿15足歲投保聲明書&N#7-1.UNBN066-體檢病歷資料審核單&N#7-0.UNBN067-借調正本／歸還紀錄單&N#7-0.UNBN068-視訊投保文件－補回&N#7-0.UNBN069-非親晤受理電訪單&N#7-0.UNBN070-遠距投保－錄音錄影審查作業項目&N#7-0.UNBN071-保費資金來源投保權益確認書(要保人為法人時適用)&N#7-1.UNBN072-投保無喪葬費用保險金保險商品確認聲明書&N#7-1.UNBN073-高齡客戶投保評估量表暨業務員報告書&N#7-2.UNBN074-高齡銷售過程錄音問卷&N#7-0.UNBN076-高齡銷售過程錄音問卷＿繳款人&N#7-0.UNBN996-送金單&N#7-0.UNBN997-文件內容塗表&N#7-0.UNBN998-初核表&N#7-0.UNBN999-傳真&N#7-0.POSN001-各式申請書【多頁】&N#7-2.POSN004-各式申請書&N#7-1.POSB005-契約變更申請批註單&N#7-1.POSN005-保險單借款約定書&N#7-1.POSN006-保險契約終止撤銷申請書 &N#7-1.POSN007-電子商務網路服務約定書&N#7-3.POSB010-保險契約內容變更申請書【多頁】&N#7-0.POSN011-匯款約定書&N#7-1.POSB011-保險契約內容變更申請書&N#7-1.POSN012-審查表 &N#7-0.POSN013-給付通知書&N#7-1.POSN014-聲明書&N#7-1.POSN015-委託書&N#7-1.POSN016-其他附件&N#7-0.POSN017-試算表&N#7-1.POSN019-照會單&N#7-1.POSB020-簽章變更申請書&N#7-1.POSN020-保全作業退件 &N#7-0.POSN021-病歷&N#7-0.POSN022-業務員報告書&N#7-1.POSN023-可疑交易查核表&N#7-0.POSN024-可疑交易報告&N#7-0.POSB030-健康告知書&N#7-1.POSB040-疾病問卷&N#7-1.POSB050-批註書 &N#7-1.POSB080-重要事項告知&N#7-1.POSB090-結匯授權書 &N#7-1.POSN025-FATCA＆CRS相關文件&N#7-0.POSB026-保險契約個人資料異動申請書&N#7-0.POSN027-定審文件&N#7-0.POSB081-費率可能調整告知書&N#7-1.POSB029-電子化通知服務暨個人資料異動申請書&N#7-1.POSZ999-分檔&N#7-1.CLMN002-診斷證明書&N#7-0.CLMN003-收據&N#7-0.CLMN004-調閱病歷同意書&N#7-0.CLMN005-附件&N#7-0.CLMN006-理賠申請書&N#7-0.CLMN102-線上申請-診斷證明書&N#7-0.CLMN103-線上申請-收據&N#7-0.CLMN110-線上申請-轉送暨個資蒐集同意書/醫療單據調閱授權同意書&N#7-0.CLMN011-醫院傳送之診斷證明書&N#7-0.CLMN012-醫院傳送之收據&N#7-0.CLMN104-線上申請-調閱病歷同意書&N#7-0.CLMN105-線上申請-附件&N#7-0.CLMN106-線上申請-理賠申請書&N#7-0.CLMN107-線上申請-保險單&N#7-0.CLMN010-轉送暨個資蒐集同意書/醫療單據調閱授權同意書&N#7-0.CLMN013-美國海外帳戶FATCA及CRS身分聲明書、個人資料告知暨同意書&N#7-0.CLMN014-受益人身分證明&N#7-0.CLMN015-被保險人除戶戶籍謄本&N#7-0.CLMN016-相驗屍體證明書或死亡診斷書&N#7-0.CLMN017-病理、檢驗或專業評量表/病歷&N#7-0.CLMN018-X光片&N#7-0.CLMN019-理賠批註書&N#7-0.CLMN020-理賠和解書(同意書)/撤回申訴申請書&N#7-0.CLMN021-行動理賠聲明暨同意書&N#7-0.CLMN113-線上申請-FATCA及CRS聲明書&N#7-0.CLMN114-線上申請-受益人身分證明&N#7-0.CLMN115-線上申請-除戶戶籍謄本&N#7-0.CLMN116-線上申請-相驗屍體證明書或死亡診斷書&N#7-0.CLMN117-線上申請-病理、檢驗或專業評量表/病歷&N#7-0.CLMN118-線上申請-X光片&N#7-0.CLMN121-線上申請-行動理賠聲明暨同意書&N#7-0.CLMN022-醫院傳送之出院病摘&N#7-0.CLMN023-醫院傳送之醫學影像&N#7-0.CLMN024-醫院傳送之病理檢查&N#7-0.CLMN025-醫院傳送之手術資料&N#7-0.CLMN026-醫院傳送之住院資料&N#7-0.CLMN027-醫院傳送之急診資料&N#7-0.CLMN028-醫院傳送之門診資料&N#7-0.CLMN029-醫院傳送-其他&N#7-0.CLMN123-線上申請-醫學影像&N#7-0.CLMN125-線上申請-手術資料&N#7-0.CLMN126-線上申請-門診資料&N#7-0.CLMN127-線上申請-急診資料&N#7-0.CLMN128-線上申請-住院資料&N#7-0.CLMN030-身心障礙證明&N#7-0.CLMN031-實物給付完成確認書&N#7-0.CLMN130-線上申請-身心障礙證明&N#7-0.CLMN131-線上申請-實物給付完成確認書&N#7-0.CLMN032-身分驗證同意書&N#7-0.CLMN001-壽險審核三聯單&N#7-0.GIDA001-團險要保書&N#7-0.GIDA002-業務人員報告書&N#7-0.GIDA003-續保約定書&N#7-0.GIDA004-其他約定書&N#7-0.GIDA005-投保人名冊&N#7-0.GIDA006-計劃書底稿&N#7-0.GIDA007-承保明細表&N#7-0.GIDA008-會辦單&N#7-0.GIDA009-保費切結書&N#7-0.GIDA010-其他&N#7-0.GIDA011-加保通知書&N#7-0.GIDA012-退保通知書&N#7-0.GIDA013-契變通知書&N#7-0.GIDA014-通知函&N#7-0.GIDA015-網路服務申請書&N#7-0.GIDA016-公司版個資同意書&N#7-0.GIDA017-身心障礙手冊&N#7-0.GIDA018-工商登記&N#7-0.GIDA019-報備文件&N#7-0.GIDA020-要保單位行文&N#7-0.GIDA021-索引報表&N#7-0.GIDA022-超齡名單&N#7-0.GIDA023-勞保繳款單&N#7-0.GIDA024-退費聲明書&N#7-0.GIDA025-要保單位權益確認書&N#7-0.GIDA026-團險保戶風險評估契審表&N#7-0.GIDA027-經手人變更書&N#7-0.GIDA028-費率檢核表&N#7-0.GIDA029-續保研議表&N#7-0.GIDB001-個人版個資同意書&N#7-0.GIDB002-受益人指定卡&N#7-0.GIDB003-健康告知聲明書&N#7-0.GIDB004-參加調查表&N#7-0.GIDB005-個人病歷個資同意書&N#7-0.GIDB006-體檢表&N#7-0.GIDB007-個人行文&N#7-0.GIDB008-個人通報查核表&N#7-0.".split(".");
+					for (var i=0;i<fileTypeNames.length ;i++){
+					  var c=fileTypeNames[i].split("-");
+					  if (c[0]==fileType){
+					    return c[1].substr(0,c[1].indexOf("&"));
+					   }
+					}														
+				}								 			
+				function trim(str)
+				{
+					return str.replace(/(^\s*)|(\s*$)/g,"");
+				}
+				
+				function isInteger( str ){
+					var regu = /^[-]{0,1}[0-9]{1,}$/;
+					return regu.test(str);
+				}			
+			]]></script> 
+  </scripts> 
+  <oninitscript> <![CDATA[		
+				BatchDepType.addItem("NB","契約");
+				BatchDepType.addItem("GR","團險");
+				BatchDepType.addItem("TX","保服");
+				BatchDepType.addItem("LA","理賠");
+				
+				MainFileType.addItem("UNB","UNB-新契約");	
+				MainFileType.addItem("POS","POS-POS");	
+				MainFileType.addItem("CLM","CLM-理賠");		
+				MainFileType.addItem("GID","GID-團險");
+					
+				var mainFileTypes="UNB:UNBA001,UNBA002,UNBA003,UNBA004,UNBA005,UNBA006,UNBA007,UNBA008,UNBA009,UNBA010,UNBA011,UNBA012,UNBA013,UNBA014,UNBA015,UNBA016,UNBA017,UNBA018,UNBA019,UNBA020,UNBA021,UNBA022,UNBA023,UNBA024,UNBA025,UNBA026,UNBA027,UNBA028,UNBA029,UNBA030,UNBA031,UNBA032,UNBA033,UNBA034,UNBA035,UNBA036,UNBA037,UNBA039,UNBA038,UNBA040,UNBA041,UNBA042,UNBA043,UNBA044,UNBA045,UNBA046,UNBA047,UNBA048,UNBA049,UNBA050,UNBA051,UNBA052,UNBA053,UNBA054,UNBA055,UNBA056,UNBA057,UNBA058,UNBA059,UNBA060,UNBA061,UNBA062,UNBA063,UNBA064,UNBA065,UNBA066,UNBA067,UNBA068,UNBA069,UNBA070,UNBA071,UNBA072,UNBA073,UNBA074,UNBA075,UNBA076,UNBA077,UNBA078,UNBA079,UNBA993,UNBA994,UNBA995,UNBA996,UNBA997,UNBA998,UNBA999,UNBB001,UNBB002,UNBB003,UNBB004,UNBB005,UNBB006,UNBB007,UNBB008,UNBB009,UNBB010,UNBB011,UNBB012,UNBB014,UNBB015,UNBB016,UNBB017,UNBB018,UNBB019,UNBB020,UNBB021,UNBB022,UNBB023,UNBB024,UNBB025,UNBB026,UNBB027,UNBB028,UNBB029,UNBB030,UNBB031,UNBB032,UNBB033,UNBB034,UNBB035,UNBB036,UNBB037,UNBB038,UNBB039,UNBB040,UNBB041,UNBB042,UNBB043,UNBB044,UNBB046,UNBB047,UNBB048,UNBB049,UNBB050,UNBB051,UNBB052,UNBB053,UNBB054,UNBB056,UNBB057,UNBB058,UNBB059,UNBB060,UNBB061,UNBB062,UNBB063,UNBB064,UNBB066,UNBB998,UNBB999,UNBN001,UNBN002,UNBN003,UNBN004,UNBN005,UNBN006,UNBN007,UNBN008,UNBN009,UNBN010,UNBN011,UNBN012,UNBN013,UNBN014,UNBN015,UNBN016,UNBN017,UNBN018,UNBN019,UNBN020,UNBN021,UNBN022,UNBN023,UNBN025,UNBN026,UNBN027,UNBN028,UNBN029,UNBN030,UNBN031,UNBN032,UNBN033,UNBN034,UNBN035,UNBN036,UNBN037,UNBN038,UNBN039,UNBN040,UNBN041,UNBN042,UNBN043,UNBN044,UNBN045,UNBN046,UNBN047,UNBN048,UNBN049,UNBN050,UNBN051,UNBN052,UNBN053,UNBN054,UNBN055,UNBN056,UNBN057,UNBN058,UNBN059,UNBN060,UNBN061,UNBN062,UNBN063,UNBN064,UNBN065,UNBN066,UNBN067,UNBN068,UNBN069,UNBN070,UNBN071,UNBN072,UNBN073,UNBN074,UNBN076,UNBN996,UNBN997,UNBN998,UNBN999;POS:POSN001,POSN004,POSB005,POSN005,POSN006,POSN007,POSB010,POSN011,POSB011,POSN012,POSN013,POSN014,POSN015,POSN016,POSN017,POSN019,POSB020,POSN020,POSN021,POSN022,POSN023,POSN024,POSB030,POSB040,POSB050,POSB080,POSB090,POSN025,POSB026,POSN027,POSB081,POSB029,POSZ999;CLM:CLMN002,CLMN003,CLMN004,CLMN005,CLMN006,CLMN102,CLMN103,CLMN110,CLMN011,CLMN012,CLMN104,CLMN105,CLMN106,CLMN107,CLMN010,CLMN013,CLMN014,CLMN015,CLMN016,CLMN017,CLMN018,CLMN019,CLMN020,CLMN021,CLMN113,CLMN114,CLMN115,CLMN116,CLMN117,CLMN118,CLMN121,CLMN022,CLMN023,CLMN024,CLMN025,CLMN026,CLMN027,CLMN028,CLMN029,CLMN123,CLMN125,CLMN126,CLMN127,CLMN128,CLMN030,CLMN031,CLMN130,CLMN131,CLMN032,CLMN001;GID:GIDA001,GIDA002,GIDA003,GIDA004,GIDA005,GIDA006,GIDA007,GIDA008,GIDA009,GIDA010,GIDA011,GIDA012,GIDA013,GIDA014,GIDA015,GIDA016,GIDA017,GIDA018,GIDA019,GIDA020,GIDA021,GIDA022,GIDA023,GIDA024,GIDA025,GIDA026,GIDA027,GIDA028,GIDA029,GIDB001,GIDB002,GIDB003,GIDB004,GIDB005,GIDB006,GIDB007,GIDB008;".split(";");
+				var firstFileType="";
+				for (var j=0;j<mainFileTypes.length ;j++){																	
+					var c=mainFileTypes[j].split(":");
+
+					if(c.length == 2){
+						var fileTypes=c[1].split(",");	
+						
+						for (var i=0;i<fileTypes.length ;i++){
+							if (firstFileType==""){
+						  		firstFileType=fileTypes[i];
+							}						
+						 	FileType.addItem(fileTypes[i],fileTypes[i]+"-"+ getFileTypeName(fileTypes[i]));					 	
+						}
+					}				    
+				}		
+				
+				FileType.setValue(firstFileType);	
+				
+			
+					BatchDepType.setValue("NB");
+					BatchDate.value="1120210";
+					BoxNo.addItem("","請選擇");
+			
+						BoxNo.addItem("3H110507", "3H110507");	
+						
+			
+						BoxNo.addItem("3H110529", "3H110529");	
+						
+			
+						BoxNo.addItem("3H110551", "3H110551");	
+						
+			
+						BoxNo.addItem("3H110557", "3H110557");	
+						
+			
+						BoxNo.addItem("3H110561", "3H110561");	
+						
+			
+						BoxNo.addItem("3H110563", "3H110563");	
+						
+			
+						BoxNo.addItem("3H110564", "3H110564");	
+						
+			
+						BoxNo.addItem("3H110565", "3H110565");	
+						
+			
+						BoxNo.addItem("3H110566", "3H110566");	
+						
+			
+						BoxNo.addItem("3H110567", "3H110567");	
+						
+			
+						BoxNo.addItem("3H110568", "3H110568");	
+						
+			
+						BoxNo.addItem("3H110569", "3H110569");	
+						
+			
+						BoxNo.addItem("3H110570", "3H110570");	
+						
+			
+						BoxNo.addItem("3H110571", "3H110571");	
+						
+			
+						BoxNo.addItem("3H110572", "3H110572");	
+						
+			
+						BoxNo.addItem("3H110573", "3H110573");	
+						
+			
+						BoxNo.addItem("3H110574", "3H110574");	
+						
+			
+						BoxNo.addItem("3H110575", "3H110575");	
+						
+			
+						BoxNo.addItem("3H110576", "3H110576");	
+						
+			
+						BoxNo.addItem("3H110577", "3H110577");	
+						
+			
+						BoxNo.addItem("3H110578", "3H110578");	
+						
+			
+						BoxNo.addItem("3H110579", "3H110579");	
+						
+			
+						BoxNo.addItem("3H110580", "3H110580");	
+						
+			
+						BoxNo.addItem("3H110581", "3H110581");	
+						
+			
+						BoxNo.addItem("3H110582", "3H110582");	
+						
+			
+						BoxNo.addItem("3H110583", "3H110583");	
+						
+			
+						BoxNo.addItem("3H110584", "3H110584");	
+						
+			
+						BoxNo.addItem("3H110585", "3H110585");	
+						
+			
+						BoxNo.addItem("3H110586", "3H110586");	
+						
+			
+						BoxNo.addItem("3H110587", "3H110587");	
+						
+			
+						BoxNo.addItem("3H110588", "3H110588");	
+						
+			
+						BoxNo.addItem("3H110589", "3H110589");	
+						
+			
+						BoxNo.addItem("3H110590", "3H110590");	
+						
+			
+						BoxNo.addItem("3H110591", "3H110591");	
+						
+			
+						BoxNo.addItem("3H110592", "3H110592");	
+						
+			
+						BoxNo.addItem("3H110593", "3H110593");	
+						
+			
+						BoxNo.addItem("3H110594", "3H110594");	
+						
+			
+						BoxNo.addItem("3H110595", "3H110595");	
+						
+			
+						BoxNo.addItem("3H110596", "3H110596");	
+						
+			
+						BoxNo.addItem("3H110597", "3H110597");	
+						
+			
+						BoxNo.addItem("3H110598", "3H110598");	
+						
+			
+						BoxNo.addItem("3H110599", "3H110599");	
+						
+			
+						BoxNo.addItem("3H110600", "3H110600");	
+						
+			
+						BoxNo.addItem("3H110601", "3H110601");	
+						
+			
+						BoxNo.addItem("3H110602", "3H110602");	
+						
+			
+						BoxNo.addItem("3H110603", "3H110603");	
+						
+			
+						BoxNo.addItem("3H110604", "3H110604");	
+						
+			
+						BoxNo.addItem("3H110605", "3H110605");	
+						
+			
+						BoxNo.addItem("3H110606", "3H110606");	
+						
+			
+						BoxNo.addItem("3H110607", "3H110607");	
+						
+			
+						BoxNo.addItem("3H110608", "3H110608");	
+						
+			
+						BoxNo.addItem("3H110609", "3H110609");	
+						
+			
+						BoxNo.addItem("3H110610", "3H110610");	
+						
+			
+						BoxNo.addItem("3H110611", "3H110611");	
+						
+			
+						BoxNo.addItem("3H110612", "3H110612");	
+						
+			
+						BoxNo.addItem("3H110613", "3H110613");	
+						
+			
+						BoxNo.addItem("3H110614", "3H110614");	
+						
+			
+						BoxNo.addItem("3H110615", "3H110615");	
+						
+			
+						BoxNo.addItem("3H110616", "3H110616");	
+						
+			
+						BoxNo.addItem("3H110617", "3H110617");	
+						
+			
+						BoxNo.addItem("3H110618", "3H110618");	
+						
+			
+						BoxNo.addItem("3H110619", "3H110619");	
+						
+			
+			
+			BoxNo.setValue("");	
+								
+			ActionReplace.addItem("N","否");
+			ActionReplace.addItem("Y","是");
+			ActionReplace.setValue("N");
+
+			ActionInsert.addItem("N","否");
+			ActionInsert.addItem("Y","是");
+			ActionInsert.setValue("N");
+			
+			OrgName.value= "台北總公司";
+			OrgName.enabled=false;
+			DeptName.value= "契約行政科";
+			DeptName.enabled=false;
+			
+			updateRole.value="Y";
+			fromQueryPage.value="false";
+			
+			if(fromQueryPage.value == "false"){
+				ActionReplace.enabled = false;
+				ActionInsert.enabled = false;
+			}else if(updateRole.value == "N"){				
+				ActionReplace.setValue("N");
+				ActionReplace.enabled = false;
+			}	
+			]]> 
+  </oninitscript> 
+  <onvalidatescript> <![CDATA[				
+			if(FilePage.value !="" && 
+				!isInteger(FilePage.value))
+			{
+				//alert("Page No should be a integer number!");
+				alert("Page No should be a integer number!");
+				return false;
+			}
+			
+			if(FilePage.value !="" &&
+				FilePage.value <=0)
+			{
+				//alert("Page No should be not less than 1!");
+				alertMsg("MSG_241003");  
+				return false;
+			}
+			return true;					
+		]]> 
+  </onvalidatescript> 
+ </formconfig> 
+ <scripts> 
+  <afterupload><![CDATA[
+			//FileType.ClearItems();
+			//CompanyCode.enable=false;
+			//PersonalCode.enable=false;
+		]]>
+  </afterupload> 
+ </scripts> 
+</scanconfig>

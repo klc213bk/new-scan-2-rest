@@ -35,6 +35,11 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.12.0</version>
+</dependency>
+		<dependency>
 			<groupId>asprise-scan</groupId>
 			<artifactId>asprise-scan</artifactId>
 			<version>12.0.5</version>

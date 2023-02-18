@@ -439,7 +439,7 @@ public class ImageRecordHelper {
 		if (logger.isDebugEnabled()) {
 			logger.debug("queryFromPage={}, imageSaveDir={}, fileName={}, imageFormat={}, mainFileType={}, fileType={}, fileCode={}, maxPage={}, filePage={}, boxNo={}, batchArea={}, companyCode={}, personalCode={}, signature={}, sigSeqNumber={}, scanTime={}, recordStatus={}, lastScanOrder={}", queryFromPage, imageSaveDir, fileName, imageFormat, mainFileType, fileType, fileCode, maxPage, filePage, boxNo, batchArea, companyCode, personalCode, signature, sigSeqNumber, scanTime, recordStatus, lastScanOrder);
 		}
-
+		//=========================
 		String mainFileTypeText = mainFileType;
 		if ( ObjectsUtil.isNotEmpty(mainFileType) ) {
 			for (Pair<String, String> mainFileTypePair : scanConfig.getMainFileTypeList()) {
@@ -449,9 +449,10 @@ public class ImageRecordHelper {
 				}
 			}
 		}
-		if (logger.isDebugEnabled()) {
-			logger.debug("mainFileType={}, mainFileTypeText={}", mainFileType, mainFileTypeText);
-		}
+		
+//		if (logger.isDebugEnabled()) {
+//			logger.debug("mainFileType={}, mainFileTypeText={}", mainFileType, mainFileTypeText);
+//		}
 
 		String fileTypeText = fileType;
 		if ( ObjectsUtil.isNotEmpty(mainFileType) && ObjectsUtil.isNotEmpty(fileType) ) {
@@ -461,12 +462,13 @@ public class ImageRecordHelper {
 				fileTypeText = billCard.getCardCode() + "-" + billCard.getCardDesc();
 			}
 		}
-		if (logger.isDebugEnabled()) {
-			logger.debug("fileType={}, fileTypeText={}", fileType, fileTypeText);
-		}
+		
+//		if (logger.isDebugEnabled()) {
+//			logger.debug("fileType={}, fileTypeText={}", fileType, fileTypeText);
+//		}
 
 		List<TiffField> newFields = new ArrayList<TiffField>();
-
+		//========================= 
 		TiffField orgNameParam = new TiffField(RecordField.OrgName.name(), scanConfig.getOrgName(), scanConfig.getOrgName());
 		newFields.add(orgNameParam);//組織編碼
 
@@ -501,10 +503,11 @@ public class ImageRecordHelper {
 			_batchArea = batchArea;
 			_batchDocType = "";
 		}
+		//========================= 
 		if (logger.isDebugEnabled()) {
 			logger.debug("_boxNo={}, _batchDepType={}, _batchDepTypeValue={}, _batchDate={}, _batchArea={}, _batchDocType={}", _boxNo, _batchDepType, _batchDepTypeValue, _batchDate, _batchArea, _batchDocType);
 		}
-
+		//========================= ++++
 		TiffField boxNoParam = new TiffField(RecordField.BoxNo.name(), _boxNo, _boxNo);
 		newFields.add(boxNoParam);//箱號
 
@@ -601,6 +604,7 @@ public class ImageRecordHelper {
 		TiffField scanTimeParam = new TiffField(RecordField.ScanTime.name(), scanTime, scanTime);
 		newFields.add(scanTimeParam);//掃瞄日期時間
 
+		
 		TiffRecord newTiffRecord = new TiffRecord();
 		newTiffRecord.setFileName(fileName);
 		newTiffRecord.setFields(newFields);

@@ -1,10 +1,11 @@
 package com.tgl.newscan2rest.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DeleteRecord {
 
 	private int deleteIndex; // 0 base
-	
-	private String scanOrder;
 	
 	private String fileURL;
 
@@ -15,14 +16,6 @@ public class DeleteRecord {
 
 	public void setDeleteIndex(int deleteIndex) {
 		this.deleteIndex = deleteIndex;
-	}
-
-	public String getScanOrder() {
-		return scanOrder;
-	}
-
-	public void setScanOrder(String scanOrder) {
-		this.scanOrder = scanOrder;
 	}
 
 	public String getFileURL() {

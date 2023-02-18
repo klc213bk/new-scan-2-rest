@@ -188,6 +188,7 @@ public class ScanUtil {
 				if (ObjectsUtil.isEmpty(barcode)) {
 					continue;
 				}
+				//=============
 
 				if (barcode.length() == 9) {
 					stMainFileType = barcode.substring(0, 3);
@@ -233,6 +234,7 @@ public class ScanUtil {
 					}
 				}
 			}
+			//====================
 
 			if (fileCodeCount == 0 && stIsMultiPolicy) {
 				fileCodes.addAll(stMultiPolicyCodes);
@@ -253,6 +255,7 @@ public class ScanUtil {
 				if (logger.isDebugEnabled()) {
 					logger.debug("fileCodeCount={}, set stFileCodeCount=true", fileCodeCount);
 				}
+				//====================
 				stIsMultiPolicy = true;
 				stFileCodeCount = fileCodeCount;
 
@@ -262,6 +265,7 @@ public class ScanUtil {
 						logger.debug("FileCode:{}", fileCode);
 					}
 					fileName = saveImage(tiffFile, splitDiv+"_"+fileCode);
+					// =====================
 					policyCodes.addAll(otherArgs);
 					policyCodes.add(fileCode);
 					// 組合保單
@@ -270,7 +274,7 @@ public class ScanUtil {
 					tiffRecords.add(scannedRecord);
 					policyCodes.clear();
 				}
-
+				// =====================
 				if (imageRules.size() > 0){
 					List<TiffRecord> sigRecords = cutImage(fileCodes, imageRules, image, "01", stIsMultiPolicy, queryFromPage, scanConfig);
 					tiffRecords.addAll(sigRecords);
@@ -285,6 +289,7 @@ public class ScanUtil {
 					logger.debug("Single FileCode, Set stFileCodeCount=false");
 					logger.debug("otherArgs:[{}], fileCodes:[{}]", (otherArgs==null ? "" : String.join(",", otherArgs)), (fileCodes==null ? "" : String.join(",", fileCodes)));
 				}
+				// =====================
 				stIsMultiPolicy = false;
 				if (otherArgs.size() > 0) {
 					policyCodes.addAll(otherArgs);
@@ -431,7 +436,7 @@ public class ScanUtil {
 				logger.debug("This is a signature file!");
 			}
 		}
-
+//====================
 		// 處理多個條碼
 		if ( barcodes != null && barcodes.size() > 0 ) {
 			for ( int i=0; i<barcodes.size(); i++ ) {
@@ -440,7 +445,7 @@ public class ScanUtil {
 				if (logger.isDebugEnabled()) {
 					logger.debug("barcode={}, length={}", barcode, barcodeLen);
 				}
-
+//==================
 				switch (barcodeLen) {
 				case 9: {
 					// 文件類別(9)
@@ -634,7 +639,8 @@ public class ScanUtil {
 				logger.debug("isFileCodeChanged=true, NULL change to  {}", currentFileCode);
 			}
 		}
-
+//============================
+		
 		if ( ( isSignature && ObjectsUtil.isEmpty(currentFileType) && ObjectsUtil.isNotEmpty(stLastFileType) ) || // 切簽名影像沒有影像類型 BARCODE
 			 ( !isFileCodeChanged && 
 			   ObjectsUtil.isEmpty(currentFileType) && ObjectsUtil.isNotEmpty(stLastFileType) && 
@@ -694,6 +700,9 @@ public class ScanUtil {
 		if (logger.isDebugEnabled()) {
 			logger.debug("isMultiPolicy={}", isMultiPolicy);
 		}
+		
+//============================= 
+		
 		if (isMultiPolicy) {
 			// 組合保單			
 
@@ -739,7 +748,9 @@ public class ScanUtil {
 			} else {
 				// currentPage 依 FileType 條碼編號,不需 Reset
 				if (logger.isDebugEnabled()) {
-					logger.debug("currentPage 依 FileType 條碼編號,不需 Reset! currentPage={}, stLastFilePage={}", currentPage, stLastFilePage);
+//					String msg = String.format("\"currentPage 依 FileType 條碼編號,不需 Reset! currentPage=%s, stLastFilePage=%d\"", currentPage, stLastFilePage);
+//					logger.debug("1111 currentPage 依 FileType 條碼編號,不需 Reset! {}", msg);
+					//logger.debug("currentPage 依 FileType 條碼編號,不需 Reset! currentPage={}, stLastFilePage={}", currentPage, stLastFilePage);
 				}
 			}
 		} else {
@@ -781,7 +792,8 @@ public class ScanUtil {
 				}
 			}
 		}
-
+		//============================= 
+		
 		String tmpFilePage = null;
 		String tmpSignature = null;
 		String tmpSigSeqNumber = null;
@@ -823,7 +835,7 @@ public class ScanUtil {
 					}
 				}
 			}
-
+			//============================= 
 			if ( ObjectsUtil.isNotEmpty(personalCode) ) {
 				if (logger.isDebugEnabled()) {
 					logger.debug("NOT GID But personalCode -> {}", personalCode);
@@ -848,6 +860,7 @@ public class ScanUtil {
 			imageFormat = Constant.FILE_TYPE_JPG;
 		}
 
+		//=============================
 		TiffRecord tiffRecord = ImageRecordHelper.createTiffRecord(
 			queryFromPage, scanConfig, imageSaveDir, fileName, imageFormat, mainFileType, currentFileType, currentFileCode,
 			totalPage, tmpFilePage, stLastBoxNo, stLastBatchArea, companyCode,
@@ -858,7 +871,7 @@ public class ScanUtil {
 		// 1.	影像主類型=POS時,改為同UNB。
 		// 2.	影像主類型=UNB時,按照預定義的圖像區域切簽名檔並記錄影像的子類型為原影像子類型,標記為簽名影像。
 		// Check FileCode&PageNo. If there is a signature, Call cutImage()
-
+		//============================= 
 		Map<String, List<SignatureImgRule>> rules = scanConfig.getSignatureRules();
 		if ( !isSignature && null != rules && rules.size() > 0 ) {
 			if (logger.isDebugEnabled()) {
@@ -887,7 +900,7 @@ public class ScanUtil {
 				}
 			}
 		}
-
+		//============================= 
 		if ( !Constant.SEP_BARCODE.equals(barcode) ) {
 			// keep last value
 			stLastFileType = currentFileType;
@@ -903,7 +916,7 @@ public class ScanUtil {
 			}
 			stLastTotalPage = totalPage;
 		}
-
+		
 		return tiffRecord;
 	}
 
@@ -1525,7 +1538,8 @@ public class ScanUtil {
 		if (logger.isDebugEnabled()) {
 			logger.debug("convertFile start! selectedFile={}, queryFromPage={}", selectedFile.getName(), queryFromPage);
 		}
-
+		
+		
 		RequestOutputItem requestOutput = null;
 		int scanType = TwainConstants.TWPT_BW;
 		int scanDuplex = TwainConstants.TWDX_NONE;
@@ -1587,7 +1601,9 @@ public class ScanUtil {
 			logger.debug("imaging.convert()");
 			logger.debug("request = {}", request.toJson(true));
 		}
-
+		
+		///=======================
+		
 		Imaging imaging = new Imaging(DEFAULT_APP_ID, DEFAULT_WIN_HANDLE)
 		    .setUseAspriseSourceSelectUI(false);
 
@@ -1597,6 +1613,10 @@ public class ScanUtil {
 		if (logger.isDebugEnabled()) {
 			logger.debug("result = {}", result == null ? "(null)" : result.toJson(true));
 		}
+		
+		
+//===================================
+		
 
 		List<File> acquireFiles = result.getImageFiles();
 		if ( acquireFiles==null || acquireFiles.size()==0 ) {
@@ -1621,7 +1641,7 @@ public class ScanUtil {
 				String errorMessage = String.format("影像檔讀取失敗 %s ！", acquireFile.getName());
 				logger.error(errorMessage, e);
 			}
-
+//===============================
 			if ( image != null ) {
 				List<Map<String, Object>> barcodeList = imageItem.getBarcodes();
 				barcodes = getBarcodes(barcodeList, null);
@@ -1639,7 +1659,7 @@ public class ScanUtil {
 				logger.error("移除掃描暫存檔錯誤", e);
 			}
 		}
-
+		
 		// 移除導入暫存檔
 		if (tempFile != null) {
 			try {
@@ -1650,7 +1670,7 @@ public class ScanUtil {
 		}
 
 		Date endTime = new Date();
-
+		//===============================
 		if (logger.isDebugEnabled()) {
 			long processTime = (System.currentTimeMillis() - startTime) / 1000;
 			logger.debug("convertFile finish! processTime={} seconds", processTime);

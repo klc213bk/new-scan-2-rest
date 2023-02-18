@@ -49,7 +49,7 @@ public class ScanService {
 		String colorModeStr = scanRequest.getColorMode();
 		String duplexModeStr = scanRequest.getDuplexMode();
 		boolean queryFromPage = scanRequest.isQueryFromPage();
-		int lastScanOrder = Integer.valueOf(scanRequest.getLastScanOrder());
+		int lastScanOrder = scanRequest.getLastScanOrder() == null ? 0 : Integer.valueOf(scanRequest.getLastScanOrder());
 		
 		ScanConfig scanConfig = null;
 		ScanResult scanResult = null;

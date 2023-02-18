@@ -34,24 +34,40 @@ import com.asprise.imaging.core.scan.twain.Source;
 import com.asprise.imaging.core.scan.twain.TwainConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tgl.newscan2rest.bean.BatchDeleteBean;
+import com.tgl.newscan2rest.bean.CopyRecord;
 import com.tgl.newscan2rest.bean.DeleteRecord;
 import com.tgl.newscan2rest.bean.ImageRecordSet;
+import com.tgl.newscan2rest.bean.ImportRecord;
 import com.tgl.newscan2rest.bean.LoginStatus;
+import com.tgl.newscan2rest.bean.PageWarning;
 import com.tgl.newscan2rest.bean.RestResult;
 import com.tgl.newscan2rest.bean.ScanConfig;
 import com.tgl.newscan2rest.bean.ScanConfigResult;
 import com.tgl.newscan2rest.bean.ScanResult;
 import com.tgl.newscan2rest.bean.SourcesResult;
+import com.tgl.newscan2rest.bean.TiffRecord;
+import com.tgl.newscan2rest.bean.UpdateRecordBean;
+import com.tgl.newscan2rest.bean.UploadBean;
 import com.tgl.newscan2rest.dto.Greeting;
 import com.tgl.newscan2rest.dto.LoginRequest;
 import com.tgl.newscan2rest.dto.ScanRequest;
 import com.tgl.newscan2rest.http.EBaoException;
+import com.tgl.newscan2rest.service.CopyService;
 import com.tgl.newscan2rest.service.DeleteService;
+import com.tgl.newscan2rest.service.ImportService;
 import com.tgl.newscan2rest.service.LoginService;
 import com.tgl.newscan2rest.service.ScanService;
+import com.tgl.newscan2rest.service.UpdateService;
+import com.tgl.newscan2rest.service.UploadService;
 import com.tgl.newscan2rest.util.ScanConfigUtil;
+import com.tgl.newscan2rest.util.ScanUtil;
+
+import net.asprise.commons.lang3.builder.ToStringBuilder;
 
 @RestController
 public class Controller {
@@ -77,6 +93,18 @@ public class Controller {
 	
 	@Autowired
 	DeleteService deleteService;
+	
+	@Autowired
+	CopyService copyService;
+	
+	@Autowired
+	ImportService importService;
+	
+	@Autowired
+	UpdateService updateService;
+	
+	@Autowired
+	UploadService uploadService;
 
 	@GetMapping("/greeting/{name}")
 	public Greeting greeting(@PathVariable String name) {
@@ -110,6 +138,37 @@ public class Controller {
 
 	@GetMapping("/testStr")
 	public ResponseEntity<String> testStr() {
+		
+		
+			String htmlBody = "";
+			try {
+				htmlBody = ScanConfigUtil.readConfig();
+				
+				logger.debug("after readConfig...");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ScanConfig scanConfig = null;
+			try {
+				scanConfig = ScanConfigUtil.parseHtml(htmlBody);
+				logger.debug("aa" +  scanConfig.getMainFileTypeList());
+				logger.debug("bb" +  scanConfig.getOrgName());
+				logger.debug("cc:" +  scanConfig.getDeptName());
+				logger.debug("after parseHtml...");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String importFilePath = "C:\\Users\\steven\\Flutter\\tgl\\bloc\\projects\\sandbox22\\image-archive\\2023011317574865301_01028074972.tiff";
+			File selectedFile = new File(importFilePath);
+			logger.debug("dd:" +  selectedFile);
+			ScanUtil.setLastScanOrder(1);
+			ScanUtil.setMultiPolicy(false);
+			ScanUtil.setFileCodeCount(0);
+			List<TiffRecord> recordList = ScanUtil.convertFile(selectedFile, false, scanConfig);
+			logger.debug("recordList size:" + recordList.size());
+		
 		String json = "{\"rating\":\"4.5\",\"img\":\"lib/utils/assets/image_1\"}";
 		System.out.println("json" + json);
 		return ResponseEntity.ok(json);
@@ -133,14 +192,185 @@ public class Controller {
 		return ResponseEntity.ok(json);
 		
 	}
-	@PostMapping(path = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> delete(@RequestBody DeleteRecord deleteRecord) {
+	
+	@PostMapping(path = "/importRecord", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> importRecord(@RequestBody ImportRecord importRecord) {
+		logger.debug("Controller importRecord is called");
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = "";
+		RestResult restResult = null;
+		
+		try {
+			importService.importRecord(importRecord);
+			
+			restResult = new RestResult("0000", null);
+			
+			json = objectMapper.writeValueAsString(restResult);
+			
+			logger.debug("importRecord success, json:" + json);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("Controller importRecord error:" + e.getMessage());
+			
+			restResult = new RestResult("-1000", e.getMessage());
+			
+			try {
+				json = objectMapper.writeValueAsString(restResult);
+				
+			} catch (JsonProcessingException e1) {
+				e1.printStackTrace();
+				logger.error("Controller importRecord JsonProcessingException error:" + e1.getMessage());
+				json = "{\"errorCode\":\"-1100\",\"errorMessage\":\"see logs for details\"}";
+			}	
+			
+		}
+		logger.debug("Controller importRecord is complete");
+		return ResponseEntity.ok(json);
+	}
+	@PostMapping(path = "/copy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> copy(@RequestBody CopyRecord copyRecord) {
+		logger.debug("Controller copy is called");
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = "";
+		RestResult restResult = null;
+		
+		try {
+			
+			copyService.copy(copyRecord);
+			
+			restResult = new RestResult("0000", null);
+			
+			json = objectMapper.writeValueAsString(restResult);
+			
+			logger.debug("copy success, json:" + json);
+		} catch (Exception e) {
+			logger.error("Controller copy error:" + e.getMessage());
+			
+			restResult = new RestResult("-1000", e.getMessage());
+			
+			try {
+				json = objectMapper.writeValueAsString(restResult);
+				
+			} catch (JsonProcessingException e1) {
+				e1.printStackTrace();
+				logger.error("Controller copy JsonProcessingException error:" + e1.getMessage());
+				json = "{\"errorCode\":\"-1100\",\"errorMessage\":\"see logs for details\"}";
+			}	
+			
+		}
+		logger.debug("Controller copy is complete");
+		return ResponseEntity.ok(json);
+	}
+	@PostMapping(path = "/uploadAll", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> uploadAll() {
+		logger.debug("Controller uploadAll is called");
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = "";
 		RestResult restResult = null;
 		
+		try {
+			uploadService.uploadAll();;
+			
+			restResult = new RestResult("0000", null);
+			
+			json = objectMapper.writeValueAsString(restResult);
+			
+			logger.debug("uploadAll success, json:" + json);
+		} catch (Exception e) {
+			restResult = new RestResult("-1000", e.getMessage());
+			
+			try {
+				json = objectMapper.writeValueAsString(restResult);
+				
+			} catch (JsonProcessingException e1) {
+				e1.printStackTrace();
+				logger.error("Controller uploadAll JsonProcessingException error:" + e1.getMessage());
+				json = "{\"errorCode\":\"-1100\",\"errorMessage\":\"see logs for details\"}";
+			}	
+			
+		}
 		
+		logger.debug("Controller uploadAll is complete");
+		return ResponseEntity.ok(json);
+	}
+	@PostMapping(path = "/uploadSaveTiffData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> uploadSaveTiffData(@RequestBody UploadBean uploadBean) {
+		logger.debug("Controller uploadSaveTiffData is called");
+		logger.debug("uploadSaveTiffData:" + ToStringBuilder.reflectionToString(uploadBean));
+		
+		int selectedIndex = uploadBean.getSelectedIndex();
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = "";
+		RestResult restResult = null;
+		
+		try {
+			
+			uploadService.uploadSaveTiffData(selectedIndex);
+			
+			restResult = new RestResult("0000", null);
+			
+			json = objectMapper.writeValueAsString(restResult);
+			
+			logger.debug("uploadSaveTiffData success , json:" + json);
+		} catch (Exception e) {
+			restResult = new RestResult("-1000", e.getMessage());
+			
+			try {
+				json = objectMapper.writeValueAsString(restResult);
+				
+			} catch (JsonProcessingException e1) {
+				e1.printStackTrace();
+				logger.error("Controller uploadSaveTiffData JsonProcessingException error:" + e1.getMessage());
+				json = "{\"errorCode\":\"-1100\",\"errorMessage\":\"see logs for details\"}";
+			}	
+			
+		}
+		
+		logger.debug("Controller uploadSaveTiffData is complete");
+		return ResponseEntity.ok(json);
+	}
+	@PostMapping(path = "/updateRecord", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> updateRecord(@RequestBody UpdateRecordBean updateRecordBean) {
+		logger.debug("Controller updateRecord is called");
+		logger.debug("updateRecordBean:" + ToStringBuilder.reflectionToString(updateRecordBean));
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = "";
+		RestResult restResult = null;
+		
+		try {
+			updateService.updateRecord(updateRecordBean);
+			
+			restResult = new RestResult("0000", null);
+			
+			json = objectMapper.writeValueAsString(restResult);
+			
+			logger.debug("updateRecord success, json:" + json);
+		} catch (Exception e) {
+			restResult = new RestResult("-1000", e.getMessage());
+			
+			try {
+				json = objectMapper.writeValueAsString(restResult);
+				
+			} catch (JsonProcessingException e1) {
+				e1.printStackTrace();
+				logger.error("Controller updateRecord JsonProcessingException error:" + e1.getMessage());
+				json = "{\"errorCode\":\"-1100\",\"errorMessage\":\"see logs for details\"}";
+			}	
+			
+		}
+		
+		logger.debug("Controller updateRecord is complete");
+		return ResponseEntity.ok(json);
+	}
+	@PostMapping(path = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> delete(@RequestBody DeleteRecord deleteRecord) {
+		logger.debug("Controller delete is called");
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = "";
+		RestResult restResult = null;
 		
 		try {
 			
@@ -150,16 +380,56 @@ public class Controller {
 			
 			json = objectMapper.writeValueAsString(restResult);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			
-			json = "{\"errorCode\":\"-1100\",\"errorMessage\":\"see logs for details\"}";
+			restResult = new RestResult("-1000", e.getMessage());
+			
+			try {
+				json = objectMapper.writeValueAsString(restResult);
+				
+			} catch (JsonProcessingException e1) {
+				e1.printStackTrace();
+				logger.error("Controller delete JsonProcessingException error:" + e1.getMessage());
+				json = "{\"errorCode\":\"-1100\",\"errorMessage\":\"see logs for details\"}";
+			}	
+			
+		}
+		logger.debug("Controller delete is complete");
+		return ResponseEntity.ok(json);
+	}
+	@PostMapping(path = "/batchDelete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> batchDelete(@RequestBody BatchDeleteBean batchDeleteBean) {
+		logger.debug("Controller batchDelete is called");
+		logger.debug("BatchDeleteBean :" + batchDeleteBean.getFromScanOrder() +", " + batchDeleteBean.getToScanOrder());
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = "";
+		RestResult restResult = null;
+		
+		try {
+			deleteService.batchDelete(batchDeleteBean);
+			
+			restResult = new RestResult("0000", null);
+			
+			json = objectMapper.writeValueAsString(restResult);
+			
+			logger.debug("batchDelete success, json:" + json);
+		} catch (Exception e) {
+			restResult = new RestResult("-1000", "kkkkksee logs for details");
+			
+			try {
+				json = objectMapper.writeValueAsString(restResult);
+				
+			} catch (JsonProcessingException e1) {
+				e1.printStackTrace();
+				logger.error("Controller batchDelete JsonProcessingException error:" + e1.getMessage());
+				json = "{\"errorCode\":\"-1100\",\"errorMessage\":\"see logs for details\"}";
+			}	
 			
 		}
 		
+		logger.debug("Controller batchDelete is complete");
 		return ResponseEntity.ok(json);
 	}
-	
 	@PostMapping(path = "/scan", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> scan(@RequestBody ScanRequest scanRequest) {
 
