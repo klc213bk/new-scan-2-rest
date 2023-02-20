@@ -682,5 +682,7 @@ public class EbaoClient {
 		}
 
 	}
-
+	public boolean isClientInitialized() {
+		return this.initialed;
+	}
 }
