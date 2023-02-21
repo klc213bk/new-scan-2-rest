@@ -24,6 +24,8 @@ import com.tgl.newscan2rest.bean.ScannedImage;
 import com.tgl.newscan2rest.bean.TiffField;
 import com.tgl.newscan2rest.bean.TiffRecord;
 import com.tgl.newscan2rest.bean.TiffRecords;
+import com.tgl.newscan2rest.exception.Scan2Exception;
+import com.tgl.newscan2rest.exception.Scan2Exception.ErrorCode;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -611,5 +613,46 @@ public class ImageRecordHelper {
 
 		return newTiffRecord;
 	}
-
+	
+	public ImageRecordSet loadImageRecordSet() throws Scan2Exception {
+		ImageRecordSet tmpRecordSet = null;
+		if ( xmlFileExists() ) {
+			try {
+				tmpRecordSet = unmarshalFromFile();
+			} catch (JAXBException e) {
+				logger.error(e.getMessage(), e);
+				String backupFileName = null;
+				try {
+					backupFileName = backupXmlFile();
+				} catch (IOException ioe) {
+					logger.error("", ioe);
+				}
+				String loadErrorMessage = String.format("%s 檔案內容有誤，無法解析！原檔案將備份並更名為 %s 以利除錯追蹤。", ImageRecordHelper.RECORD_SET_FILE_NAME, backupFileName);
+				ErrorCode errorCode = ErrorCode.CANNOT_PARSE_IMAGERECORDSET_FILE;
+				errorCode.setMessage(loadErrorMessage);
+				
+				throw new Scan2Exception(errorCode);
+			}
+		}
+		TiffRecords records = new TiffRecords();
+		records.setRecordList(new ArrayList<TiffRecord>());
+		ImageRecordSet recordSet = new ImageRecordSet();
+		recordSet.setRecords(records);
+		
+		if ( tmpRecordSet!=null && tmpRecordSet.getRecords()!=null && tmpRecordSet.getRecords().getRecordList()!=null ) {
+			for (TiffRecord tiffRecord : tmpRecordSet.getRecords().getRecordList()) {
+				records.getRecordList().add(tiffRecord);
+			}
+		} 
+		try {
+			marshalToFile(recordSet);
+		} catch (JAXBException e) {
+			logger.error("", e);
+			String loadErrorMessage = String.format("無法儲存設定檔 %s ！", ImageRecordHelper.RECORD_SET_FILE_NAME);
+			ErrorCode errorCode = ErrorCode.CANNOT_PARSE_IMAGERECORDSET_FILE;
+			errorCode.setMessage(loadErrorMessage);
+			throw new Scan2Exception(errorCode);
+		}
+		return recordSet;
+	}
 }

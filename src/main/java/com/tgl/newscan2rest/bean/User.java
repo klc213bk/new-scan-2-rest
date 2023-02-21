@@ -1,19 +1,15 @@
 package com.tgl.newscan2rest.bean;
 
-import com.tgl.newscan2rest.util.ImageRecordHelper;
 
-class User {
+public class User {
 	private int loginStatus;
 	
 	private ScanConfig scanConfig;
 	
 	private ImageRecordSet recordSet;
 	
-	private ImageRecordHelper recordSetHelper;
-	
 	public User() {
 		loginStatus = LoginStatus.STATUS_NOT_USER_LOGGIN;
-		recordSetHelper = ImageRecordHelper.getInstance();
 	}
 
 	public ScanConfig getScanConfig() {
@@ -24,6 +20,14 @@ class User {
 		this.scanConfig = scanConfig;
 	}
 
+	public int getLoginStatus() {
+		return loginStatus;
+	}
+
+	public void setLoginStatus(int loginStatus) {
+		this.loginStatus = loginStatus;
+	}
+
 	public ImageRecordSet getRecordSet() {
 		return recordSet;
 	}
@@ -32,13 +36,4 @@ class User {
 		this.recordSet = recordSet;
 	}
 
-	public int getLoginStatus() {
-		return loginStatus;
-	}
-
-	public ImageRecordHelper getRecordSetHelper() {
-		return recordSetHelper;
-	}
-	
-	
 }
