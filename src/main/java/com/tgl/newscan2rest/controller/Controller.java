@@ -307,7 +307,7 @@ public class Controller {
 		
 		try {
 			
-			uploadService.uploadSaveTiffData(selectedIndex);
+//			uploadService.uploadSaveTiffData(selectedIndex);
 			
 			restResult = new RestResult("0000", null);
 			
